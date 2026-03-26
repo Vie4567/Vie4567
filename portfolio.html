@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nguyen Dang Khoa | Pentester Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicon/devicon@latest/devicon.min.css">
+    
+    <style>
+        :root {
+            --primary-color: #39ff14; /* Neon Green */
+            --bg-color: #0a0a0a;
+            --card-bg: #161616;
+            --text-color: #e0e0e0;
+            --muted-color: #888;
+        }
+
+        /* Reset margin/padding để tránh lỗi thụt đầu dòng mặc định */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Courier New', Courier, monospace; }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        .container { max-width: 950px; margin: 0 auto; }
+
+        /* Terminal Decor */
+        .terminal-header {
+            background: #2a2a2a;
+            padding: 8px 15px;
+            display: flex;
+            gap: 8px;
+            border-radius: 8px 8px 0 0;
+            border: 1px solid #444;
+            border-bottom: none;
+        }
+        .dot { width: 12px; height: 12px; border-radius: 50%; }
+        .red { background: #ff5f56; } .yellow { background: #ffbd2e; } .green { background: #27c93f; }
+
+        /* Header Section */
+        header {
+            border: 1px solid #444;
+            background: var(--card-bg);
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 0 20px rgba(57, 255, 20, 0.1);
+            border-radius: 0 0 8px 8px;
+        }
+
+        h1 { color: var(--primary-color); font-size: 2.8rem; text-transform: uppercase; margin-bottom: 10px; }
+        
+        .typewriter-text {
+            display: inline-block;
+            overflow: hidden;
+            white-space: nowrap;
+            letter-spacing: 0.1rem;
+            border-right: 2px solid var(--primary-color);
+            animation: typewriter 2s steps(40) 1s forwards, blink 0.75s step-end infinite;
+            width: 0;
+        }
+
+        @keyframes typewriter { from { width: 0; } to { width: 100%; } }
+        @keyframes blink { from, to { border-color: transparent; } 50% { border-color: var(--primary-color); } }
+
+        .contact-info { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-top: 20px; font-size: 0.95rem; }
+        .contact-info a { color: var(--primary-color); text-decoration: none; }
+        .contact-info i { margin-right: 8px; color: var(--primary-color); }
+
+        /* Section Styling */
+        section { margin-bottom: 50px; }
+        h2 {
+            background: var(--primary-color);
+            color: black;
+            display: inline-block;
+            padding: 4px 20px;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            font-size: 1.3rem;
+        }
+
+        /* Cards */
+        .card {
+            background: var(--card-bg);
+            border-left: 4px solid #333;
+            padding: 25px;
+            margin-bottom: 20px;
+            transition: 0.4s;
+            position: relative;
+        }
+        .card:hover {
+            border-left-color: var(--primary-color);
+            transform: translateX(5px);
+            background: #1c1c1c;
+        }
+
+        .project-title { color: var(--primary-color); font-weight: bold; font-size: 1.2rem; margin-bottom: 5px; }
+        .tech-stack { font-size: 0.85rem; color: var(--muted-color); margin-bottom: 15px; }
+        .project-icon { font-size: 2rem; color: #444; position: absolute; right: 25px; top: 25px; }
+
+        /* Skills Grid - Đã sửa lỗi căn lề */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .skill-item {
+            border: 1px solid #333;
+            padding: 20px;
+            background: var(--card-bg);
+            display: flex;
+            align-items: center; /* Căn giữa icon và chữ theo chiều dọc */
+            gap: 15px;
+        }
+        .skill-item b { color: var(--primary-color); }
+        
+        .tool-icon {
+            font-size: 2.5rem;
+            width: 50px;
+            text-align: center;
+            color: #ccc;
+            flex-shrink: 0;
+        }
+        
+        /* Inline Icons */
+        .inline-icon { font-size: 1.1rem; vertical-align: middle; margin: 0 2px; }
+
+        footer { text-align: center; margin-top: 60px; color: var(--muted-color); font-size: 0.85rem; border-top: 1px solid #333; padding: 30px 0; }
+
+        @media (max-width: 600px) {
+            h1 { font-size: 2rem; }
+            .typewriter-text { white-space: normal; width: 100%; border: none; animation: none; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="terminal-header">
+        <div class="dot red"></div>
+        <div class="dot yellow"></div>
+        <div class="dot green"></div>
+        <span style="font-size: 0.8rem; margin-left: 10px; color: #888;">khoa@pentest-portfolio: ~ / (profile)</span>
+    </div>
+    
+    <header>
+        <h1 class="glitch">Nguyen Dang Khoa</h1>
+        <p style="color: var(--primary-color); font-weight: bold; font-size: 1.1rem; margin-bottom: 10px;">
+            <span class="typewriter-text">> Intern Penetration Tester</span>
+        </p>
+        <div class="contact-info">
+            <span><i class="fas fa-envelope"></i> <a href="mailto:khoazsz1985@gmail.com">khoazsz1985@gmail.com</a></span>
+            <span><i class="fas fa-phone"></i> +84 365 164 510</span>
+            <span><i class="fab fa-github"></i> <a href="https://github.com/Vie4567">github.com/Vie4567</a></span>
+            <span><i class="fas fa-map-marker-alt"></i> HCM City, Viet Nam</span>
+        </div>
+    </header>
+
+    <section id="summary">
+        <h2>01. Summary</h2>
+        <p>Information Security student at HCMUTE, focusing on <b>Web Penetration Testing</b> (OWASP Top 10) and building <b>AI Agents for automated security toolings</b>. Able to execute full pentest workflows and write impact-focused <b>security reports</b>.</p>
+    </section>
+
+    <section id="skills">
+        <h2>02. Core Skills & Toolings</h2>
+        <div class="skills-grid">
+            <div class="skill-item">
+                <div class="tool-icon"><i class="fas fa-spider" style="color: #E96D3C;"></i></div>
+                <div><b>Web AppSec:</b> Burp Suite, SQLMap, FFUF, Nessus, SQLi, XSS, SSRF.</div>
+            </div>
+            <div class="skill-item">
+                <div class="tool-icon"><i class="fas fa-network-wired" style="color: #ddd;"></i></div>
+                <div><b>Networking:</b> Nmap, Wireshark, TCP/IP, DNS, VLAN, DMZ.</div>
+            </div>
+            <div class="skill-item">
+                <div class="tool-icon"><i class="devicon-linux-plain"></i></div>
+                <div><b>OS & Docker:</b> Kali Linux, Ubuntu, <i class="devicon-windows8-original inline-icon" style="color:#0078D6;"></i> Windows, <i class="devicon-docker-plain inline-icon" style="color:#2496ED;"></i> Docker.</div>
+            </div>
+            <div class="skill-item">
+                <div class="tool-icon">
+                    <i class="devicon-python-plain" style="color:#3776AB;"></i>
+                </div>
+                <div>
+                    <b>Dev:</b> <br>
+                    <span style="color: #3776AB; font-weight: bold;">Python</span><br> - tool development, <br>
+                    <span style="color: #ED8B00; font-weight: bold;">Java</span>
+                    (<span style="color: #6DB33F; font-weight: bold;">Spring Boot</span>) - Web Development, <br>
+                    <span style="color: #4EAA25; font-weight: bold;">Bash Scripting</span> - tool development and working with systems, managing processes.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects">
+        <h2>03. Featured Projects</h2>
+        <div class="card">
+            <i class="fas fa-robot project-icon"></i>
+            <p class="project-title">Multi-Agent Automation Pentest Tool</p>
+            <p class="tech-stack">Python | CrewAI | httpx</p>
+            <p>Developed an automated web pentest system using Multi-Agent AI to perform reconnaissance and generate security reports with qualitative Proof of Concept (PoC) demonstrations.</p>
+        </div>
+        <div class="card">
+            <i class="fas fa-microchip project-icon"></i>
+            <p class="project-title">Rucky Tool Lab (HID Attacks)</p>
+            <p class="tech-stack">HID Device | Android | Rucky App</p>
+            <p>Built a controlled lab to study attack and defense use HID device; documented scenarios and hardening steps.</p>
+        </div>
+    </section>
+
+    <section id="education">
+        <h2>04. Education</h2>
+        <div class="card">
+            <i class="fas fa-graduation-cap project-icon"></i>
+            <p><b>Thu Khoa Nghia Specialized High School</b></p>
+            <p style="font-size: 0.95rem;">Information Technology | 2021 - 2023</p>
+        </div>
+        <div class="card">
+            <i class="fas fa-university project-icon"></i>
+            <p><b>Ho Chi Minh City University of Technology and Engineering</b></p>
+            <p style="font-size: 0.95rem;">B.Eng. in Information Security | 2023 - Present</p>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2026 Nguyen Dang Khoa | Compiled with <i class="devicon-python-plain inline-icon" style="color:#3776AB;"></i> and <i class="fas fa-heart" style="color:red;"></i></p>
+    </footer>
+</div>
+
+</body>
+</html>
