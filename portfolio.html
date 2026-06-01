@@ -3,232 +3,303 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nguyen Dang Khoa | Pentester Portfolio</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicon/devicon@latest/devicon.min.css">
-    
+    <title>Nguyen Dang Khoa | SOC Portfolio</title>
     <style>
         :root {
-            --primary-color: #39ff14; /* Neon Green */
-            --bg-color: #0a0a0a;
-            --card-bg: #161616;
-            --text-color: #e0e0e0;
-            --muted-color: #888;
+            --bg-color: #0f141c;
+            --text-color: #e1e7ee;
+            --text-muted: #95a5ac;
+            --accent-color: #5ccfe6;
+            --border-color: #232e3d;
+            --card-bg: #151d28;
         }
 
-        /* Reset margin/padding để tránh lỗi thụt đầu dòng mặc định */
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Courier New', Courier, monospace; }
-
         body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
             line-height: 1.6;
-            padding: 20px;
-            overflow-x: hidden;
+            margin: 0;
+            padding: 0;
         }
 
-        .container { max-width: 950px; margin: 0 auto; }
-
-        /* Terminal Decor */
-        .terminal-header {
-            background: #2a2a2a;
-            padding: 8px 15px;
-            display: flex;
-            gap: 8px;
-            border-radius: 8px 8px 0 0;
-            border: 1px solid #444;
-            border-bottom: none;
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
         }
-        .dot { width: 12px; height: 12px; border-radius: 50%; }
-        .red { background: #ff5f56; } .yellow { background: #ffbd2e; } .green { background: #27c93f; }
 
         /* Header Section */
         header {
-            border: 1px solid #444;
-            background: var(--card-bg);
-            padding: 40px;
-            margin-bottom: 30px;
-            box-shadow: 0 0 20px rgba(57, 255, 20, 0.1);
-            border-radius: 0 0 8px 8px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 20px;
+            margin-bottom: 35px;
         }
 
-        h1 { color: var(--primary-color); font-size: 2.8rem; text-transform: uppercase; margin-bottom: 10px; }
-        
-        .typewriter-text {
-            display: inline-block;
-            overflow: hidden;
-            white-space: nowrap;
-            letter-spacing: 0.1rem;
-            border-right: 2px solid var(--primary-color);
-            animation: typewriter 2s steps(40) 1s forwards, blink 0.75s step-end infinite;
-            width: 0;
+        h1 {
+            font-size: 2rem;
+            margin: 0 0 10px 0;
+            color: #ffffff;
         }
 
-        @keyframes typewriter { from { width: 0; } to { width: 100%; } }
-        @keyframes blink { from, to { border-color: transparent; } 50% { border-color: var(--primary-color); } }
+        .subtitle {
+            font-size: 1.1rem;
+            color: var(--accent-color);
+            font-weight: 600;
+            margin: 0 0 15px 0;
+        }
 
-        .contact-info { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-top: 20px; font-size: 0.95rem; }
-        .contact-info a { color: var(--primary-color); text-decoration: none; }
-        .contact-info i { margin-right: 8px; color: var(--primary-color); }
+        .contacts {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
 
-        /* Section Styling */
-        section { margin-bottom: 50px; }
+        .contacts a {
+            color: var(--text-color);
+            text-decoration: none;
+            border-bottom: 1px dotted var(--text-muted);
+        }
+
+        .contacts a:hover {
+            color: var(--accent-color);
+            border-bottom-color: var(--accent-color);
+        }
+
+        /* Section Global Styles */
+        section {
+            margin-bottom: 35px;
+        }
+
         h2 {
-            background: var(--primary-color);
-            color: black;
-            display: inline-block;
-            padding: 4px 20px;
-            margin-bottom: 25px;
-            text-transform: uppercase;
             font-size: 1.3rem;
-        }
-
-        /* Cards */
-        .card {
-            background: var(--card-bg);
-            border-left: 4px solid #333;
-            padding: 25px;
+            border-left: 3px solid var(--accent-color);
+            padding-left: 10px;
             margin-bottom: 20px;
-            transition: 0.4s;
-            position: relative;
-        }
-        .card:hover {
-            border-left-color: var(--primary-color);
-            transform: translateX(5px);
-            background: #1c1c1c;
+            color: #ffffff;
         }
 
-        .project-title { color: var(--primary-color); font-weight: bold; font-size: 1.2rem; margin-bottom: 5px; }
-        .tech-stack { font-size: 0.85rem; color: var(--muted-color); margin-bottom: 15px; }
-        .project-icon { font-size: 2rem; color: #444; position: absolute; right: 25px; top: 25px; }
+        p {
+            color: var(--text-color);
+            margin: 0 0 15px 0;
+        }
 
-        /* Skills Grid - Đã sửa lỗi căn lề */
+        ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        strong {
+            color: #ffffff;
+        }
+
+        /* Skill Badges/List styling */
         .skills-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-        }
-        .skill-item {
-            border: 1px solid #333;
-            padding: 20px;
-            background: var(--card-bg);
-            display: flex;
-            align-items: center; /* Căn giữa icon và chữ theo chiều dọc */
+            grid-template-columns: 1fr 1fr;
             gap: 15px;
         }
-        .skill-item b { color: var(--primary-color); }
-        
-        .tool-icon {
-            font-size: 2.5rem;
-            width: 50px;
-            text-align: center;
-            color: #ccc;
-            flex-shrink: 0;
+
+        .skill-category {
+            background-color: var(--card-bg);
+            padding: 15px;
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
         }
-        
-        /* Inline Icons */
-        .inline-icon { font-size: 1.1rem; vertical-align: middle; margin: 0 2px; }
 
-        footer { text-align: center; margin-top: 60px; color: var(--muted-color); font-size: 0.85rem; border-top: 1px solid #333; padding: 30px 0; }
+        .skill-category h3 {
+            margin: 0 0 10px 0;
+            font-size: 1rem;
+            color: var(--accent-color);
+        }
 
-        @media (max-width: 600px) {
-            h1 { font-size: 2rem; }
-            .typewriter-text { white-space: normal; width: 100%; border: none; animation: none; }
+        /* Write-ups Section (Nơi upload bài phân tích) */
+        .writeup-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .writeup-item {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 15px;
+            border-radius: 4px;
+            transition: border-color 0.2s;
+        }
+
+        .writeup-item:hover {
+            border-color: var(--accent-color);
+        }
+
+        .writeup-title {
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin: 0 0 5px 0;
+        }
+
+        .writeup-title a {
+            color: #ffffff;
+            text-decoration: none;
+        }
+
+        .writeup-title a:hover {
+            color: var(--accent-color);
+        }
+
+        .writeup-meta {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+        }
+
+        .tag {
+            background-color: var(--bg-color);
+            color: var(--accent-color);
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-size: 0.8rem;
+            border: 1px solid var(--border-color);
+            margin-right: 5px;
+        }
+
+        footer {
+            margin-top: 50px;
+            border-top: 1px solid var(--border-color);
+            padding-top: 20px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-align: center;
         }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <div class="terminal-header">
-        <div class="dot red"></div>
-        <div class="dot yellow"></div>
-        <div class="dot green"></div>
-        <span style="font-size: 0.8rem; margin-left: 10px; color: #888;">khoa@pentest-portfolio: ~ / (profile)</span>
+    <div class="container">
+        
+        <!-- ================= HEADER ================= -->
+        <header>
+            <h1>Nguyen Dang Khoa</h1>
+            <div class="subtitle">Intern SOC Analyst / Blue Teamer</div>
+            <div class="contacts">
+                Email: <a href="mailto:khoazsz1985@gmail.com">khoazsz1985@gmail.com</a> &nbsp;&bull;&nbsp;
+                GitHub: <a href="https://github.com/Vie4567" target="_blank">Vie4567</a> &nbsp;&bull;&nbsp;
+                SĐT: +84 365 164 510
+            </div>
+        </header>
+
+        <!-- ================= SUMMARY ================= -->
+        <section id="about">
+            <h2>Giới Thiệu Bản Thân</h2>
+            <p>
+                Sinh viên ngành An toàn thông tin định hướng chuyên sâu vào <strong>Giám sát an ninh mạng và Phản ứng sự cố (SOC Tier 1)</strong>. 
+                Sở hữu tư duy "Offensive-driven Defense" (Dùng kiến thức tấn công để tối ưu hóa phòng thủ) giúp nhận diện nhanh chóng các hành vi bất thường, giải mã payload độc hại và cấu hình luật phát hiện trên hệ thống SIEM.
+            </p>
+        </section>
+
+        <!-- ================= SKILLS ================= -->
+        <section id="skills">
+            <h2>Kiến Thức & Kỹ Năng</h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3>Security Monitoring & OSINT</h3>
+                    <ul>
+                        <li>Phân tích log: Windows Event Logs (Security, Sysmon), Linux Syslogs.</li>
+                        <li>Điều tra IoC qua Threat Intel: VirusTotal, AbuseIPDB, Shodan.</li>
+                        <li>Sử dụng nền tảng: Mô phỏng SOC (LetsDefend), ý niệm SIEM (Splunk, Wazuh).</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h3>Vulnerability & Vectors</h3>
+                    <ul>
+                        <li>Hiểu sâu lỗ hổng OWASP Top 10 (SQLi, XSS, RCE, File Upload).</li>
+                        <li>Sử dụng công cụ rà quét/đọc vết mạng: Burp Suite, Nmap, Wireshark, SQLMap.</li>
+                        <li>Tư duy ánh xạ chuỗi hành vi xâm nhập vào khung <strong>MITRE ATT&CK</strong>.</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h3>Hạ Tầng Mạng & HĐH</h3>
+                    <ul>
+                        <li>Kiến thức TCP/IP, DNS, Routing/Switching, DMZ, Network Segmentation.</li>
+                        <li>Quản trị và thao tác tốt trên hệ điều hành: Linux (Ubuntu/Kali), Windows Server.</li>
+                        <li>Kinh nghiệm môi trường ảo hóa: Docker, WSL2, GNS3.</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h3>Lập Trình & Tự Động Hóa</h3>
+                    <ul>
+                        <li>Viết mã script phân tích/bóc tách dữ liệu log thô bằng <strong>Python</strong> và Bash.</li>
+                        <li>Hiểu cơ chế hoạt động, cơ chế ghi log của mã nguồn backend (Java Spring Boot).</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= SOC WRITE-UPS ================= -->
+        <section id="writeups">
+            <h2>SOC Investigation Write-ups</h2>
+            <p style="color: var(--text-muted); font-size: 0.9rem;">
+                Nơi lưu trữ và chia sẻ quá trình phân tích, điều tra các sự cố bảo mật thực tế từ các nền tảng Lab (LetsDefend, CyberDefenders, v.v.).
+            </p>
+            
+            <div class="writeup-list">
+                
+                <!-- BÀI WRITE-UP MẪU 1 -->
+                <div class="writeup-item">
+                    <div class="writeup-title">
+                        <!-- Đường dẫn dẫn tới file tài liệu hoặc file .md bài làm của bạn -->
+                        <a href="./writeups/letsdefend-sqlmap-incident.md" target="_blank">
+                            [LetsDefend] Điều tra sự cố tấn công SQL Injection bằng công cụ SQLMap
+                        </a>
+                    </div>
+                    <div class="writeup-meta">
+                        Ngày hoàn thành: 01/06/2026 &nbsp;|&nbsp; Nguồn: LetsDefend Alert Log
+                    </div>
+                    <div>
+                        <span class="tag">SQL Injection</span>
+                        <span class="tag">Log Analysis</span>
+                        <span class="tag">SQLMap</span>
+                        <span class="tag">HTTP 200 OK</span>
+                    </div>
+                    <p style="margin-top: 10px; font-size: 0.9rem; color: var(--text-muted);">
+                        Phân tích tệp nhật ký truy cập (Access Log) từ máy chủ Web chịu sự cố quét lỗ hổng hàng loạt từ IP nguồn thuộc khu vực Indonesia. Tiến hành giải mã payload hỗn hợp (UNION + xp_cmdshell) và đánh giá độ chính xác mã trạng thái phản hồi.
+                    </p>
+                </div>
+
+                <!-- BÀI WRITE-UP MẪU 2 -->
+                <div class="writeup-item">
+                    <div class="writeup-title">
+                        <a href="./writeups/sysmon-macro-malware.md" target="_blank">
+                            [Sysmon Investigation] Phát hiện chuỗi hành vi mã độc thực thi qua file Word chứa Macro (.DOCM)
+                        </a>
+                    </div>
+                    <div class="writeup-meta">
+                        Ngày hoàn thành: 28/05/2026 &nbsp;|&nbsp; Nguồn: Windows Sysmon Event
+                    </div>
+                    <div>
+                        <span class="tag">Phishing</span>
+                        <span class="tag">Malware Macro</span>
+                        <span class="tag">Sysmon Event ID 1</span>
+                        <span class="tag">PowerShell Bypass</span>
+                    </div>
+                    <p style="margin-top: 10px; font-size: 0.9rem; color: var(--text-muted);">
+                        Theo dõi dấu vết tiến trình từ sự kiện Sysmon Event ID 1 (Process Create). Phân tích cách tệp Word độc hại kích hoạt script PowerShell ngầm để thực hiện bypass chính sách thực thi hệ thống (Execution Policy Bypass) nhằm thiết lập ban đầu.
+                    </p>
+                </div>
+
+                <!-- Thêm các bài write-up khác của bạn bằng cách copy khối <div class="writeup-item"> ở đây -->
+
+            </div>
+        </section>
+
     </div>
-    
-    <header>
-        <h1 class="glitch">Nguyen Dang Khoa</h1>
-        <p style="color: var(--primary-color); font-weight: bold; font-size: 1.1rem; margin-bottom: 10px;">
-            <span class="typewriter-text">> Intern Penetration Tester</span>
-        </p>
-        <div class="contact-info">
-            <span><i class="fas fa-envelope"></i> <a href="mailto:khoazsz1985@gmail.com">khoazsz1985@gmail.com</a></span>
-            <span><i class="fas fa-phone"></i> +84 365 164 510</span>
-            <span><i class="fab fa-github"></i> <a href="https://github.com/Vie4567">github.com/Vie4567</a></span>
-            <span><i class="fas fa-map-marker-alt"></i> HCM City, Viet Nam</span>
-        </div>
-    </header>
-
-    <section id="summary">
-        <h2>01. Summary</h2>
-        <p>Information Security student at HCMUTE, focusing on <b>Web Penetration Testing</b> (OWASP Top 10) and building <b>AI Agents for automated security toolings</b>. Able to execute full pentest workflows and write impact-focused <b>security reports</b>.</p>
-    </section>
-
-    <section id="skills">
-        <h2>02. Core Skills & Toolings</h2>
-        <div class="skills-grid">
-            <div class="skill-item">
-                <div class="tool-icon"><i class="fas fa-spider" style="color: #E96D3C;"></i></div>
-                <div><b>Web AppSec:</b> Burp Suite, SQLMap, FFUF, Nessus, SQLi, XSS, SSRF.</div>
-            </div>
-            <div class="skill-item">
-                <div class="tool-icon"><i class="fas fa-network-wired" style="color: #ddd;"></i></div>
-                <div><b>Networking:</b> Nmap, Wireshark, TCP/IP, DNS, VLAN, DMZ.</div>
-            </div>
-            <div class="skill-item">
-                <div class="tool-icon"><i class="devicon-linux-plain"></i></div>
-                <div><b>OS & Docker:</b> Kali Linux, Ubuntu, <i class="devicon-windows8-original inline-icon" style="color:#0078D6;"></i> Windows, <i class="devicon-docker-plain inline-icon" style="color:#2496ED;"></i> Docker.</div>
-            </div>
-            <div class="skill-item">
-                <div class="tool-icon">
-                    <i class="devicon-python-plain" style="color:#3776AB;"></i>
-                </div>
-                <div>
-                    <b>Dev:</b> <br>
-                    <span style="color: #3776AB; font-weight: bold;">Python</span><br> - tool development, <br>
-                    <span style="color: #ED8B00; font-weight: bold;">Java</span>
-                    (<span style="color: #6DB33F; font-weight: bold;">Spring Boot</span>) - Web Development, <br>
-                    <span style="color: #4EAA25; font-weight: bold;">Bash Scripting</span> - tool development and working with systems, managing processes.
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="projects">
-        <h2>03. Featured Projects</h2>
-        <div class="card">
-            <i class="fas fa-robot project-icon"></i>
-            <p class="project-title">Multi-Agent Automation Pentest Tool</p>
-            <p class="tech-stack">Python | CrewAI | httpx</p>
-            <p>Developed an automated web pentest system using Multi-Agent AI to perform reconnaissance and generate security reports with qualitative Proof of Concept (PoC) demonstrations.</p>
-        </div>
-        <div class="card">
-            <i class="fas fa-microchip project-icon"></i>
-            <p class="project-title">Rucky Tool Lab (HID Attacks)</p>
-            <p class="tech-stack">HID Device | Android | Rucky App</p>
-            <p>Built a controlled lab to study attack and defense use HID device; documented scenarios and hardening steps.</p>
-        </div>
-    </section>
-
-    <section id="education">
-        <h2>04. Education</h2>
-        <div class="card">
-            <i class="fas fa-graduation-cap project-icon"></i>
-            <p><b>Thu Khoa Nghia Specialized High School</b></p>
-            <p style="font-size: 0.95rem;">Information Technology | 2021 - 2023</p>
-        </div>
-        <div class="card">
-            <i class="fas fa-university project-icon"></i>
-            <p><b>Ho Chi Minh City University of Technology and Engineering</b></p>
-            <p style="font-size: 0.95rem;">B.Eng. in Information Security | 2023 - Present</p>
-        </div>
-    </section>
 
     <footer>
-        <p>© 2026 Nguyen Dang Khoa | Compiled with <i class="devicon-python-plain inline-icon" style="color:#3776AB;"></i> and <i class="fas fa-heart" style="color:red;"></i></p>
+        &copy; 2026 Nguyen Dang Khoa. Built with clean HTML/CSS.
     </footer>
-</div>
 
 </body>
 </html>
