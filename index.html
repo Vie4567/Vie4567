@@ -465,52 +465,76 @@
         // =========================================================================
         // CƠ SỞ DỮ LIỆU GỐC (BẠN CÓ THỂ COPIED MÃ XUẤT RA ĐÈ VÀO ĐÂY ĐỂ LƯU CHÍNH THỨC)
         // =========================================================================
-        const defaultProfile = {
-            name: "Nguyen Dang Khoa",
-            role: "Intern SOC Analyst / Blue Teamer",
-            email: "khoazsz1985@gmail.com",
-            github: "Vie4567",
-            phone: "+84 365 164 510",
-            summary: "Sinh viên ngành An toàn thông tin định hướng chuyên sâu vào <strong>Giám sát an ninh mạng và Phản ứng sự cố (SOC Tier 1)</strong>. Sở hữu tư duy \"Offensive-driven Defense\" giúp nhận diện nhanh chóng các hành vi bất thường, giải mã payload độc hại và cấu hình luật phát hiện trên hệ thống SIEM."
-        };
+const defaultProfile = {
+          "name": "Nguyen Dang Khoa",
+          "role": "Intern SOC Analyst / Blue Teamer",
+          "email": "khoazsz1985@gmail.com",
+          "github": "Vie4567",
+          "phone": "+84 365 164 510",
+          "summary": "Sinh viên ngành An toàn thông tin định hướng chuyên sâu vào <strong>Giám sát an ninh mạng và Phản ứng sự cố (SOC Tier 1)</strong>. Sở hữu tư duy \"Offensive-driven Defense\" giúp nhận diện nhanh chóng các hành vi bất thường, giải mã payload độc hại và cấu hình luật phát hiện trên hệ thống SIEM."
+};
 
-        const defaultLabs = [
-            {
-                title: "[LetsDefend] Điều tra sự cố tấn công SQL Injection bằng công cụ SQLMap",
-                date: "01/06/2026",
-                source: "LetsDefend Alert Log",
-                fileLink: "./writeups/letsdefend-sqlmap-incident.md",
-                tags: ["SQL Injection", "Log Analysis", "SQLMap", "HTTP 200 OK"],
-                summary: "Phân tích tệp nhật ký truy cập (Access Log) từ máy chủ Web chịu sự cố quét lỗ hổng hàng loạt từ IP nguồn thuộc khu vực Indonesia. Tiến hành giải mã payload hỗn hợp và đánh giá độ chính xác mã trạng thái phản hồi."
-            },
-            {
-                title: "[Sysmon Investigation] Phát hiện chuỗi hành vi mã độc thực thi qua file Word chứa Macro (.DOCM)",
-                date: "28/05/2026",
-                source: "Windows Sysmon Event",
-                fileLink: "./writeups/sysmon-macro-malware.pdf",
-                tags: ["Phishing", "Malware Macro", "Sysmon Event ID 1", "PowerShell Bypass"],
-                summary: "Theo dõi dấu vết tiến trình từ sự kiện Sysmon Event ID 1. Phân tích cách tệp Word độc hại kích hoạt script PowerShell ngầm để thực hiện bypass chính sách thực thi hệ thống."
-            }
-        ];
+const defaultLabs = [
+          {
+                    "title": "[LetsDefend] Write up SOC205 - Malicious Macro has been executed",
+                    "date": "01/06/2026",
+                    "source": "[LetsDefend] app.letsdefend.io",
+                    "fileLink": "https://app.notion.com/p/SOC205-Malicious-Macro-has-been-executed-3728baa9cc77800c843ecb18344814bd",
+                    "tags": [
+                              "Log analyst",
+                              "macro (.docm)",
+                              "Malware",
+                              "Phishing",
+                              "olevba tool",
+                              "PowerShell Script"
+                    ],
+                    "summary": "True Positive Alert, người dùng tải file word có chứa macro (.docm) thông qua phishing email, khi mở file doc thì thực thi PowerShell Script kết nối C2 để tải malware về máy nạn nhân."
+          },
+          {
+                    "title": "[LetsDefend] Write up SOC153 - Suspicious Powershell Script Executed",
+                    "date": "31/05/2026",
+                    "source": "[LetsDefend] app.letsdefend.io",
+                    "fileLink": "https://app.notion.com/p/SOC153-Suspicious-Powershell-Script-Executed-3718baa9cc778029b82ec70d8f482a98",
+                    "tags": [
+                              "Log analyst",
+                              "Malware",
+                              "C2",
+                              "PowerShell Script"
+                    ],
+                    "summary": "Người dùng truy cập URL lạ và tải file độc hại với hành vi là sử dụng PowerShell Script đáng ngờ và kết nối với C2."
+          },
+          {
+                    "title": "[LetsDefend] Write up SOC127 - SQL Injection Detected",
+                    "date": "30/05/2026",
+                    "source": "[LetsDefend] app.letsdefend.io",
+                    "fileLink": "https://app.notion.com/p/SOC127-SQL-Injection-Detected-3728baa9cc7780d48ea1c0d45e480ca9",
+                    "tags": [
+                              "Log Analyst",
+                              "SIEM",
+                              "SQL Injection",
+                              "SQLmap"
+                    ],
+                    "summary": "Cảnh báo này là một trường hợp True Positive thông tin rằng một host bị tấn công SQL Injection bởi 1 IP độc hại đến từ Trung Quốc bằng công cụ SQLmap."
+          }
+];
 
-        const defaultProjects = [
-            {
-                title: "Attack Simulation & Automated Log Generation Tool",
-                date: "04/2026 -- Present",
-                source: "Python, LangGraph, Neo4j, Nmap",
-                fileLink: "https://github.com/Vie4567",
-                tags: ["Attack Simulation", "Log Baselining", "Multi-Agent Framework"],
-                summary: "Phát triển hệ thống Multi-Agent tự động giả lập các kỹ thuật tấn công để tạo dòng log thô hệ thống, phục vụ việc phân tích hành vi nâng cao và thiết lập luật phát hiện cho SOC."
-            },
-            {
-                title: "Secure Enterprise Identity & Access Control System",
-                date: "2025",
-                source: "Java, Spring Boot, PostgreSQL, JWT",
-                fileLink: "https://github.com/Vie4567",
-                tags: ["AuthN/AuthZ", "Secure Logging", "Access Control"],
-                summary: "Xây dựng dịch vụ backend quản lý định danh cấu hình kiểm soát truy cập nghiêm ngặt, tích hợp cấu trúc log kiểm toán (audit trails) hỗ trợ giám sát phát hiện bất thường."
-            }
-        ];
+const defaultProjects = [
+          {
+                    "title": "Multi-agent automated penetration testing tool",
+                    "date": "20/05/2026",
+                    "source": "Langgraph, Neo4j, Python, PostgreSQL",
+                    "fileLink": "https://github.com/Vie4567/Pentest-automation-tool",
+                    "tags": [
+                              "Multi-agent",
+                              "Automation Tool",
+                              "Pentest",
+                              "Langgraph",
+                              "Neo4j",
+                              "Python"
+                    ],
+                    "summary": "Tool dùng llm multi-agent để tự động hóa quá trình pentest ứng dụng bằng python, framework langgraph kết hợp với Neo4j."
+          }
+];
 
         // Khởi tạo trạng thái dữ liệu từ LocalStorage hoặc dữ liệu mặc định bên trên
         let profileData = JSON.parse(localStorage.getItem('soc_profile')) || defaultProfile;
