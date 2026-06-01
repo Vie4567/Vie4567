@@ -12,6 +12,7 @@
             --accent-color: #5ccfe6;
             --border-color: #232e3d;
             --card-bg: #151d28;
+            --admin-bg: #1e293b;
         }
 
         body {
@@ -29,11 +30,11 @@
             padding: 40px 20px;
         }
 
-        /* Header Section */
+        /* Header Styles */
         header {
             border-bottom: 1px solid var(--border-color);
             padding-bottom: 20px;
-            margin-bottom: 35px;
+            margin-bottom: 25px;
         }
 
         h1 {
@@ -65,9 +66,49 @@
             border-bottom-color: var(--accent-color);
         }
 
-        /* Section Global Styles */
+        /* Navigation Bar Tabs */
+        nav {
+            display: flex;
+            gap: 10px;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 30px;
+            padding-bottom: 10px;
+        }
+
+        .tab-btn {
+            background: none;
+            border: 1px solid transparent;
+            color: var(--text-muted);
+            padding: 8px 16px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+        }
+
+        .tab-btn:hover {
+            color: var(--text-color);
+            background-color: var(--card-bg);
+        }
+
+        .tab-btn.active {
+            color: var(--bg-color);
+            background-color: var(--accent-color);
+            border-color: var(--accent-color);
+        }
+
+        /* View Control */
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
         section {
-            margin-bottom: 35px;
+            margin-bottom: 30px;
         }
 
         h2 {
@@ -96,18 +137,23 @@
             color: #ffffff;
         }
 
-        /* Skill Badges/List styling */
+        /* Grids & Cards */
         .skills-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 15px;
         }
 
-        .skill-category {
+        @media (max-width: 600px) {
+            .skills-grid { grid-template-columns: 1fr; }
+        }
+
+        .skill-category, .item-card {
             background-color: var(--card-bg);
             padding: 15px;
             border-radius: 4px;
             border: 1px solid var(--border-color);
+            margin-bottom: 15px;
         }
 
         .skill-category h3 {
@@ -116,41 +162,22 @@
             color: var(--accent-color);
         }
 
-        /* Write-ups Section (Nơi upload bài phân tích) */
-        .writeup-list {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .writeup-item {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            padding: 15px;
-            border-radius: 4px;
-            transition: border-color 0.2s;
-        }
-
-        .writeup-item:hover {
-            border-color: var(--accent-color);
-        }
-
-        .writeup-title {
+        .card-title {
             font-weight: bold;
             font-size: 1.1rem;
             margin: 0 0 5px 0;
         }
 
-        .writeup-title a {
+        .card-title a {
             color: #ffffff;
             text-decoration: none;
         }
 
-        .writeup-title a:hover {
+        .card-title a:hover {
             color: var(--accent-color);
         }
 
-        .writeup-meta {
+        .card-meta {
             font-size: 0.85rem;
             color: var(--text-muted);
             margin-bottom: 10px;
@@ -164,6 +191,82 @@
             font-size: 0.8rem;
             border: 1px solid var(--border-color);
             margin-right: 5px;
+            display: inline-block;
+            margin-bottom: 5px;
+        }
+
+        /* CMS Admin Control Panel Styles */
+        .admin-trigger {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .btn {
+            background-color: #232e3d;
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+            padding: 8px 16px;
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 0.85rem;
+        }
+
+        .btn:hover {
+            border-color: var(--accent-color);
+            color: #fff;
+        }
+
+        .btn-accent {
+            background-color: var(--accent-color);
+            color: var(--bg-color);
+            font-weight: bold;
+            border: none;
+        }
+
+        .btn-accent:hover {
+            background-color: #4bc3dc;
+            color: var(--bg-color);
+        }
+
+        .btn-danger {
+            background-color: #ef4444;
+            color: white;
+            border: none;
+        }
+
+        #adminPanel {
+            display: none;
+            background-color: var(--admin-bg);
+            border: 1px solid var(--accent-color);
+            padding: 20px;
+            border-radius: 6px;
+            margin-top: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%;
+            padding: 8px;
+            background-color: var(--bg-color);
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 10px;
         }
 
         footer {
@@ -180,126 +283,398 @@
 
     <div class="container">
         
-        <!-- ================= HEADER ================= -->
         <header>
-            <h1>Nguyen Dang Khoa</h1>
-            <div class="subtitle">Intern SOC Analyst / Blue Teamer</div>
+            <h1 id="view-name">Nguyen Dang Khoa</h1>
+            <div class="subtitle" id="view-role">Intern SOC Analyst / Blue Teamer</div>
             <div class="contacts">
-                Email: <a href="mailto:khoazsz1985@gmail.com">khoazsz1985@gmail.com</a> &nbsp;&bull;&nbsp;
-                GitHub: <a href="https://github.com/Vie4567" target="_blank">Vie4567</a> &nbsp;&bull;&nbsp;
-                SĐT: +84 365 164 510
+                Email: <a href="mailto:khoazsz1985@gmail.com" id="view-email">khoazsz1985@gmail.com</a> &nbsp;&bull;&nbsp;
+                GitHub: <a href="https://github.com/Vie4567" target="_blank" id="view-github">Vie4567</a> &nbsp;&bull;&nbsp;
+                SĐT: <span id="view-phone">+84 365 164 510</span>
             </div>
         </header>
 
-        <!-- ================= SUMMARY ================= -->
-        <section id="about">
-            <h2>Giới Thiệu Bản Thân</h2>
-            <p>
-                Sinh viên ngành An toàn thông tin định hướng chuyên sâu vào <strong>Giám sát an ninh mạng và Phản ứng sự cố (SOC Tier 1)</strong>. 
-                Sở hữu tư duy "Offensive-driven Defense" (Dùng kiến thức tấn công để tối ưu hóa phòng thủ) giúp nhận diện nhanh chóng các hành vi bất thường, giải mã payload độc hại và cấu hình luật phát hiện trên hệ thống SIEM.
-            </p>
-        </section>
+        <nav>
+            <button class="tab-btn active" onclick="switchTab('about')">Thông Tin Cá Nhân</button>
+            <button class="tab-btn" onclick="switchTab('labs')">Phòng Lab Write-up</button>
+            <button class="tab-btn" onclick="switchTab('projects')">Dự Án Kỹ Thuật</button>
+        </nav>
 
-        <!-- ================= SKILLS ================= -->
-        <section id="skills">
-            <h2>Kiến Thức & Kỹ Năng</h2>
-            <div class="skills-grid">
-                <div class="skill-category">
-                    <h3>Security Monitoring & OSINT</h3>
-                    <ul>
-                        <li>Phân tích log: Windows Event Logs (Security, Sysmon), Linux Syslogs.</li>
-                        <li>Điều tra IoC qua Threat Intel: VirusTotal, AbuseIPDB, Shodan.</li>
-                        <li>Sử dụng nền tảng: Mô phỏng SOC (LetsDefend), ý niệm SIEM (Splunk, Wazuh).</li>
-                    </ul>
-                </div>
-                <div class="skill-category">
-                    <h3>Vulnerability & Vectors</h3>
-                    <ul>
-                        <li>Hiểu sâu lỗ hổng OWASP Top 10 (SQLi, XSS, RCE, File Upload).</li>
-                        <li>Sử dụng công cụ rà quét/đọc vết mạng: Burp Suite, Nmap, Wireshark, SQLMap.</li>
-                        <li>Tư duy ánh xạ chuỗi hành vi xâm nhập vào khung <strong>MITRE ATT&CK</strong>.</li>
-                    </ul>
-                </div>
-                <div class="skill-category">
-                    <h3>Hạ Tầng Mạng & HĐH</h3>
-                    <ul>
-                        <li>Kiến thức TCP/IP, DNS, Routing/Switching, DMZ, Network Segmentation.</li>
-                        <li>Quản trị và thao tác tốt trên hệ điều hành: Linux (Ubuntu/Kali), Windows Server.</li>
-                        <li>Kinh nghiệm môi trường ảo hóa: Docker, WSL2, GNS3.</li>
-                    </ul>
-                </div>
-                <div class="skill-category">
-                    <h3>Lập Trình & Tự Động Hóa</h3>
-                    <ul>
-                        <li>Viết mã script phân tích/bóc tách dữ liệu log thô bằng <strong>Python</strong> và Bash.</li>
-                        <li>Hiểu cơ chế hoạt động, cơ chế ghi log của mã nguồn backend (Java Spring Boot).</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
+        <div id="tab-about" class="tab-content active">
+            <section>
+                <h2>Giới Thiệu Bản Thân</h2>
+                <p id="view-summary">
+                    Sinh viên ngành An toàn thông tin định hướng chuyên sâu vào <strong>Giám sát an ninh mạng và Phản ứng sự cố (SOC Tier 1)</strong>. 
+                    Sở hữu tư duy "Offensive-driven Defense" giúp nhận diện nhanh chóng các hành vi bất thường, giải mã payload độc hại và cấu hình luật phát hiện trên hệ thống SIEM.
+                </p>
+            </section>
 
-        <!-- ================= SOC WRITE-UPS ================= -->
-        <section id="writeups">
-            <h2>SOC Investigation Write-ups</h2>
-            <p style="color: var(--text-muted); font-size: 0.9rem;">
-                Nơi lưu trữ và chia sẻ quá trình phân tích, điều tra các sự cố bảo mật thực tế từ các nền tảng Lab (LetsDefend, CyberDefenders, v.v.).
-            </p>
+            <section>
+                <h2>Kiến Thức & Kỹ Năng Cốt Lõi</h2>
+                <div class="skills-grid">
+                    <div class="skill-category">
+                        <h3>Security Monitoring & OSINT</h3>
+                        <ul id="view-skills-sec">
+                            <li>Phân tích log: Windows Event Logs (Security, Sysmon), Linux Syslogs.</li>
+                            <li>Điều tra IoC qua Threat Intel: VirusTotal, AbuseIPDB, Shodan.</li>
+                            <li>Sử dụng nền tảng: Mô phỏng SOC (LetsDefend), ý niệm SIEM (Splunk, Wazuh).</li>
+                        </ul>
+                    </div>
+                    <div class="skill-category">
+                        <h3>Vulnerability & Vectors</h3>
+                        <ul id="view-skills-vuln">
+                            <li>Hiểu sâu lỗ hổng OWASP Top 10 (SQLi, XSS, RCE, File Upload).</li>
+                            <li>Sử dụng công cụ rà quét/đọc vết mạng: Burp Suite, Nmap, Wireshark, SQLMap.</li>
+                            <li>Tư duy ánh xạ chuỗi hành vi xâm nhập vào khung <strong>MITRE ATT&CK</strong>.</li>
+                        </ul>
+                    </div>
+                    <div class="skill-category">
+                        <h3>Hạ Tầng Mạng & HĐH</h3>
+                        <ul id="view-skills-infra">
+                            <li>Kiến thức TCP/IP, DNS, Routing/Switching, DMZ, Network Segmentation.</li>
+                            <li>Quản trị tốt trên hệ điều hành: Linux (Ubuntu/Kali), Windows Server.</li>
+                            <li>Kinh nghiệm môi trường ảo hóa: Docker, WSL2, GNS3.</li>
+                        </ul>
+                    </div>
+                    <div class="skill-category">
+                        <h3>Lập Trình & Tự Động Hóa</h3>
+                        <ul id="view-skills-dev">
+                            <li>Viết mã script phân tích/bóc tách dữ liệu log thô bằng <strong>Python</strong> và Bash.</li>
+                            <li>Hiểu cơ chế hoạt động, cơ chế ghi log của mã nguồn backend (Java Spring Boot).</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div id="tab-labs" class="tab-content">
+            <section>
+                <h2>SOC Investigation Write-ups</h2>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 20px;">
+                    Danh sách các bài phân tích, điều tra các sự cố bảo mật từ quá trình giải bài Lab thực tế.
+                </p>
+                <div class="writeup-list" id="labContainer">
+                    </div>
+            </section>
+        </div>
+
+        <div id="tab-projects" class="tab-content">
+            <section>
+                <h2>Selected Technical Projects</h2>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 20px;">
+                    Các công cụ và giải pháp bảo mật tiêu biểu do tôi tự phát triển và thiết kế hệ thống.
+                </p>
+                <div class="writeup-list" id="projectContainer">
+                    </div>
+            </section>
+        </div>
+
+        <div class="admin-trigger">
+            <button class="btn" onclick="toggleAdminPanel()">⚙️ Chế Độ Quản Lý & Cập Nhật Thông Tin</button>
+        </div>
+
+        <div id="adminPanel">
+            <h2 style="border-color: #ef4444; margin-top: 0;">Bảng Quản Lý Thông Tin</h2>
             
-            <div class="writeup-list">
-                
-                <!-- BÀI WRITE-UP MẪU 1 -->
-                <div class="writeup-item">
-                    <div class="writeup-title">
-                        <!-- Đường dẫn dẫn tới file tài liệu hoặc file .md bài làm của bạn -->
-                        <a href="./writeups/letsdefend-sqlmap-incident.md" target="_blank">
-                            [LetsDefend] Điều tra sự cố tấn công SQL Injection bằng công cụ SQLMap
-                        </a>
+            <section style="background: rgba(0,0,0,0.2); padding: 15px; border-radius: 4px;">
+                <h3 style="margin-top: 0; color: var(--accent-color);">1. Cập nhật Profile Cá Nhân</h3>
+                <div class="form-row">
+                    <div class="form-group" style="flex: 2;">
+                        <label>Họ và Tên</label>
+                        <input type="text" id="form-name">
                     </div>
-                    <div class="writeup-meta">
-                        Ngày hoàn thành: 01/06/2026 &nbsp;|&nbsp; Nguồn: LetsDefend Alert Log
+                    <div class="form-group" style="flex: 2;">
+                        <label>Vị trí ứng tuyển</label>
+                        <input type="text" id="form-role">
                     </div>
-                    <div>
-                        <span class="tag">SQL Injection</span>
-                        <span class="tag">Log Analysis</span>
-                        <span class="tag">SQLMap</span>
-                        <span class="tag">HTTP 200 OK</span>
-                    </div>
-                    <p style="margin-top: 10px; font-size: 0.9rem; color: var(--text-muted);">
-                        Phân tích tệp nhật ký truy cập (Access Log) từ máy chủ Web chịu sự cố quét lỗ hổng hàng loạt từ IP nguồn thuộc khu vực Indonesia. Tiến hành giải mã payload hỗn hợp (UNION + xp_cmdshell) và đánh giá độ chính xác mã trạng thái phản hồi.
-                    </p>
                 </div>
-
-                <!-- BÀI WRITE-UP MẪU 2 -->
-                <div class="writeup-item">
-                    <div class="writeup-title">
-                        <a href="./writeups/sysmon-macro-malware.md" target="_blank">
-                            [Sysmon Investigation] Phát hiện chuỗi hành vi mã độc thực thi qua file Word chứa Macro (.DOCM)
-                        </a>
+                <div class="form-row">
+                    <div class="form-group" style="flex:1;">
+                        <label>Email</label>
+                        <input type="text" id="form-email">
                     </div>
-                    <div class="writeup-meta">
-                        Ngày hoàn thành: 28/05/2026 &nbsp;|&nbsp; Nguồn: Windows Sysmon Event
+                    <div class="form-group" style="flex:1;">
+                        <label>GitHub</label>
+                        <input type="text" id="form-github">
                     </div>
-                    <div>
-                        <span class="tag">Phishing</span>
-                        <span class="tag">Malware Macro</span>
-                        <span class="tag">Sysmon Event ID 1</span>
-                        <span class="tag">PowerShell Bypass</span>
+                    <div class="form-group" style="flex:1;">
+                        <label>SĐT</label>
+                        <input type="text" id="form-phone">
                     </div>
-                    <p style="margin-top: 10px; font-size: 0.9rem; color: var(--text-muted);">
-                        Theo dõi dấu vết tiến trình từ sự kiện Sysmon Event ID 1 (Process Create). Phân tích cách tệp Word độc hại kích hoạt script PowerShell ngầm để thực hiện bypass chính sách thực thi hệ thống (Execution Policy Bypass) nhằm thiết lập ban đầu.
-                    </p>
                 </div>
+                <div class="form-group">
+                    <label>Giới thiệu bản thân (Tóm tắt)</label>
+                    <textarea id="form-summary" rows="3"></textarea>
+                </div>
+                <button class="btn btn-accent" onclick="saveProfile()">Cập Nhật Profile Lên Giao Diện</button>
+            </section>
 
-                <!-- Thêm các bài write-up khác của bạn bằng cách copy khối <div class="writeup-item"> ở đây -->
+            <section style="background: rgba(0,0,0,0.2); padding: 15px; border-radius: 4px; margin-top: 20px;">
+                <h3 style="margin-top: 0; color: var(--accent-color);">2. Đăng Bài Viết/Dự Án Mới</h3>
+                <div class="form-group">
+                    <label>Phân loại mục đăng</label>
+                    <select id="form-item-type">
+                        <option value="lab">Đăng vào mục: Phòng Lab Write-up</option>
+                        <option value="project">Đăng vào mục: Dự An Kỹ Thuật</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Tiêu đề bài viết / Tên dự án</label>
+                    <input type="text" id="form-item-title" placeholder="Ví dụ: [LetsDefend] Sự cố Malware Phishing...">
+                </div>
+                <div class="form-row">
+                    <div class="form-group" style="flex: 1;">
+                        <label>Thời gian / Ngày làm</label>
+                        <input type="text" id="form-item-date" placeholder="Ví dụ: 01/06/2026 hoặc 2025">
+                    </div>
+                    <div class="form-group" style="flex: 1;">
+                        <label>Nguồn nền tảng / Tech Stack</label>
+                        <input type="text" id="form-item-source" placeholder="Ví dụ: Windows Sysmon hoặc Python, Neo4j">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Đường dẫn tệp Write-up (Lưu trên GitHub)</label>
+                    <input type="text" id="form-item-link" placeholder="Ví dụ: ./writeups/bai-lam.md hoặc link github">
+                </div>
+                <div class="form-group">
+                    <label>Các thẻ Tag phân loại (Cách nhau bằng dấu phẩy)</label>
+                    <input type="text" id="form-item-tags" placeholder="Ví dụ: Log Analysis, SIEM, Malware">
+                </div>
+                <div class="form-group">
+                    <label>Mô tả tóm tắt nội dung bài điều tra / Tính năng cốt lõi của dự án</label>
+                    <textarea id="form-item-summary" rows="3" placeholder="Viết 2-3 câu tóm tắt hành vi hệ thống..."></textarea>
+                </div>
+                <button class="btn btn-accent" onclick="addItem()">Thêm Bài Viết Lên Giao Diện</button>
+            </section>
 
-            </div>
-        </section>
+            <section style="background: rgba(239, 68, 68, 0.1); padding: 15px; border-radius: 4px; margin-top: 20px; border: 1px dashed #ef4444;">
+                <h3 style="margin-top: 0; color: #f87171;">3. Lưu Cố Định Lên GitHub (Rất Quan Trọng)</h3>
+                <p style="font-size: 0.85rem; color: #cbd5e1;">
+                    Vì lý do bảo mật tĩnh, dữ liệu bạn sửa trên trình duyệt sẽ biến mất nếu đổi máy hoặc xóa cache. Để lưu cố định mãi mãi lên web GitHub Pages của bạn, hãy bấm nút bên dưới để lấy tệp cấu hình chứa mã sạch, rồi dán đè vào code của bạn.
+                </p>
+                <button class="btn btn-danger" onclick="exportNewDataConfig()">Tải Mã Cấu Hình Để Lưu Lâu Dài</button>
+            </section>
+        </div>
 
     </div>
 
     <footer>
-        &copy; 2026 Nguyen Dang Khoa. Built with clean HTML/CSS.
+        &copy; 2026 Nguyen Dang Khoa. Built with SPA Architecture.
     </footer>
 
+    <script>
+        // =========================================================================
+        // CƠ SỞ DỮ LIỆU GỐC (BẠN CÓ THỂ COPIED MÃ XUẤT RA ĐÈ VÀO ĐÂY ĐỂ LƯU CHÍNH THỨC)
+        // =========================================================================
+        const defaultProfile = {
+            name: "Nguyen Dang Khoa",
+            role: "Intern SOC Analyst / Blue Teamer",
+            email: "khoazsz1985@gmail.com",
+            github: "Vie4567",
+            phone: "+84 365 164 510",
+            summary: "Sinh viên ngành An toàn thông tin định hướng chuyên sâu vào <strong>Giám sát an ninh mạng và Phản ứng sự cố (SOC Tier 1)</strong>. Sở hữu tư duy \"Offensive-driven Defense\" giúp nhận diện nhanh chóng các hành vi bất thường, giải mã payload độc hại và cấu hình luật phát hiện trên hệ thống SIEM."
+        };
+
+        const defaultLabs = [
+            {
+                title: "[LetsDefend] Điều tra sự cố tấn công SQL Injection bằng công cụ SQLMap",
+                date: "01/06/2026",
+                source: "LetsDefend Alert Log",
+                fileLink: "./writeups/letsdefend-sqlmap-incident.md",
+                tags: ["SQL Injection", "Log Analysis", "SQLMap", "HTTP 200 OK"],
+                summary: "Phân tích tệp nhật ký truy cập (Access Log) từ máy chủ Web chịu sự cố quét lỗ hổng hàng loạt từ IP nguồn thuộc khu vực Indonesia. Tiến hành giải mã payload hỗn hợp và đánh giá độ chính xác mã trạng thái phản hồi."
+            },
+            {
+                title: "[Sysmon Investigation] Phát hiện chuỗi hành vi mã độc thực thi qua file Word chứa Macro (.DOCM)",
+                date: "28/05/2026",
+                source: "Windows Sysmon Event",
+                fileLink: "./writeups/sysmon-macro-malware.pdf",
+                tags: ["Phishing", "Malware Macro", "Sysmon Event ID 1", "PowerShell Bypass"],
+                summary: "Theo dõi dấu vết tiến trình từ sự kiện Sysmon Event ID 1. Phân tích cách tệp Word độc hại kích hoạt script PowerShell ngầm để thực hiện bypass chính sách thực thi hệ thống."
+            }
+        ];
+
+        const defaultProjects = [
+            {
+                title: "Attack Simulation & Automated Log Generation Tool",
+                date: "04/2026 -- Present",
+                source: "Python, LangGraph, Neo4j, Nmap",
+                fileLink: "https://github.com/Vie4567",
+                tags: ["Attack Simulation", "Log Baselining", "Multi-Agent Framework"],
+                summary: "Phát triển hệ thống Multi-Agent tự động giả lập các kỹ thuật tấn công để tạo dòng log thô hệ thống, phục vụ việc phân tích hành vi nâng cao và thiết lập luật phát hiện cho SOC."
+            },
+            {
+                title: "Secure Enterprise Identity & Access Control System",
+                date: "2025",
+                source: "Java, Spring Boot, PostgreSQL, JWT",
+                fileLink: "https://github.com/Vie4567",
+                tags: ["AuthN/AuthZ", "Secure Logging", "Access Control"],
+                summary: "Xây dựng dịch vụ backend quản lý định danh cấu hình kiểm soát truy cập nghiêm ngặt, tích hợp cấu trúc log kiểm toán (audit trails) hỗ trợ giám sát phát hiện bất thường."
+            }
+        ];
+
+        // Khởi tạo trạng thái dữ liệu từ LocalStorage hoặc dữ liệu mặc định bên trên
+        let profileData = JSON.parse(localStorage.getItem('soc_profile')) || defaultProfile;
+        let labsData = JSON.parse(localStorage.getItem('soc_labs')) || defaultLabs;
+        let projectsData = JSON.parse(localStorage.getItem('soc_projects')) || defaultProjects;
+
+        // Hàm chuyển đổi giữa các Tab
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            
+            document.getElementById(`tab-${tabId}`).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        // Hiện / Ẩn bảng quản lý thông tin
+        function toggleAdminPanel() {
+            const panel = document.getElementById('adminPanel');
+            panel.style.display = (panel.style.display === 'block') ? 'none' : 'block';
+            if(panel.style.display === 'block') {
+                loadAdminFormFields();
+            }
+        }
+
+        // Đổ dữ liệu cũ vào form admin để sửa
+        function loadAdminFormFields() {
+            document.getElementById('form-name').value = profileData.name;
+            document.getElementById('form-role').value = profileData.role;
+            document.getElementById('form-email').value = profileData.email;
+            document.getElementById('form-github').value = profileData.github;
+            document.getElementById('form-phone').value = profileData.phone;
+            document.getElementById('form-summary').value = profileData.summary.replace(/<\/?[^>]+(>|$)/g, ""); // strip html tags
+        }
+
+        // Lưu profile từ admin form
+        function saveProfile() {
+            profileData.name = document.getElementById('form-name').value;
+            profileData.role = document.getElementById('form-role').value;
+            profileData.email = document.getElementById('form-email').value;
+            profileData.github = document.getElementById('form-github').value;
+            profileData.phone = document.getElementById('form-phone').value;
+            profileData.summary = document.getElementById('form-summary').value;
+
+            localStorage.setItem('soc_profile', JSON.stringify(profileData));
+            applyDataToDOM();
+            alert("Đã cập nhật thông tin cá nhân lên giao diện tạm thời!");
+        }
+
+        // Thêm mới một bài Lab hoặc Project
+        function addItem() {
+            const type = document.getElementById('form-item-type').value;
+            const newItem = {
+                title: document.getElementById('form-item-title').value,
+                date: document.getElementById('form-item-date').value,
+                source: document.getElementById('form-item-source').value,
+                fileLink: document.getElementById('form-item-link').value,
+                tags: document.getElementById('form-item-tags').value.split(',').map(t => t.trim()),
+                summary: document.getElementById('form-item-summary').value
+            };
+
+            if(!newItem.title || !newItem.fileLink) {
+                alert("Vui lòng điền tối thiểu Tiêu đề và Đường dẫn tệp!");
+                return;
+            }
+
+            if (type === 'lab') {
+                labsData.unshift(newItem);
+                localStorage.setItem('soc_labs', JSON.stringify(labsData));
+            } else {
+                projectsData.unshift(newItem);
+                localStorage.setItem('soc_projects', JSON.stringify(projectsData));
+            }
+
+            applyDataToDOM();
+            // Clear forms
+            document.getElementById('form-item-title').value = '';
+            document.getElementById('form-item-link').value = '';
+            document.getElementById('form-item-tags').value = '';
+            document.getElementById('form-item-summary').value = '';
+            alert("Đã thêm bài viết mới lên màn hình!");
+        }
+
+        // Hàm xóa bài viết (Dành cho việc quản lý dữ liệu nhanh)
+        function deleteItem(type, index) {
+            if(confirm("Bạn có chắc chắn muốn xóa bài viết này không?")) {
+                if (type === 'lab') {
+                    labsData.splice(index, 1);
+                    localStorage.setItem('soc_labs', JSON.stringify(labsData));
+                } else {
+                    projectsData.splice(index, 1);
+                    localStorage.setItem('soc_projects', JSON.stringify(projectsData));
+                }
+                applyDataToDOM();
+            }
+        }
+
+        // Hàm kết xuất và vẽ dữ liệu ra màn hình HTML
+        function applyDataToDOM() {
+            // Render Profile
+            document.getElementById('view-name').innerText = profileData.name;
+            document.getElementById('view-role').innerText = profileData.role;
+            document.getElementById('view-email').innerText = profileData.email;
+            document.getElementById('view-email').href = `mailto:${profileData.email}`;
+            document.getElementById('view-github').innerText = profileData.github;
+            document.getElementById('view-github').href = `https://github.com/${profileData.github}`;
+            document.getElementById('view-phone').innerText = profileData.phone;
+            document.getElementById('view-summary').innerHTML = profileData.summary;
+
+            // Render Labs
+            const labContainer = document.getElementById('labContainer');
+            if(labsData.length === 0) {
+                labContainer.innerHTML = '<p style="color: var(--text-muted);">Chưa có bài write-up lab nào.</p>';
+            } else {
+                labContainer.innerHTML = labsData.map((item, idx) => `
+                    <div class="writeup-item">
+                        <div class="writeup-title">
+                            <a href="${item.fileLink}" target="_blank">${item.title}</a>
+                            <button class="btn btn-danger" style="padding: 2px 6px; font-size: 0.7rem; float: right;" onclick="deleteItem('lab', ${idx})">Xóa</button>
+                        </div>
+                        <div class="card-meta">Ngày nộp: ${item.date} &nbsp;|&nbsp; Hệ thống: ${item.source}</div>
+                        <div>${item.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
+                        <p style="margin-top: 10px; font-size: 0.9rem; color: var(--text-muted);">${item.summary}</p>
+                    </div>
+                `).join('');
+            }
+
+            // Render Projects
+            const projectContainer = document.getElementById('projectContainer');
+            if(projectsData.length === 0) {
+                projectContainer.innerHTML = '<p style="color: var(--text-muted);">Chưa có dự án nào được đăng.</p>';
+            } else {
+                projectContainer.innerHTML = projectsData.map((item, idx) => `
+                    <div class="item-card">
+                        <div class="writeup-title">
+                            <a href="${item.fileLink}" target="_blank">${item.title}</a>
+                            <button class="btn btn-danger" style="padding: 2px 6px; font-size: 0.7rem; float: right;" onclick="deleteItem('project', ${idx})">Xóa</button>
+                        </div>
+                        <div class="card-meta">Thời gian: ${item.date} &nbsp;|&nbsp; Tech Stack: ${item.source}</div>
+                        <div>${item.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
+                        <p style="margin-top: 10px; font-size: 0.9rem; color: var(--text-muted);">${item.summary}</p>
+                    </div>
+                `).join('');
+            }
+        }
+
+        // TỰ ĐỘNG XUẤT RA KHỐI MÃ CẤU HÌNH ĐỂ COPIED NGƯỢC VÀO CODE GỐC
+        function exportNewDataConfig() {
+            const configString = 
+`// Hãy sao chép 3 cụm biến này dán đè vào vị trí dòng 342 của file index.html để lưu cố định dữ liệu:
+const defaultProfile = ${JSON.stringify(profileData, null, 12)};
+
+const defaultLabs = ${JSON.stringify(labsData, null, 12)};
+
+const defaultProjects = ${JSON.stringify(projectsData, null, 12)};`;
+
+            const blob = new Blob([configString], {type: "text/plain;charset=utf-8"});
+            const tempLink = document.createElement("a");
+            tempLink.href = URL.createObjectURL(blob);
+            tempLink.download = "soc_portfolio_config.txt";
+            tempLink.click();
+        }
+
+        // Chạy rải dữ liệu ngay khi tải trang
+        document.addEventListener('DOMContentLoaded', applyDataToDOM);
+    </script>
 </body>
 </html>
