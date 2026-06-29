@@ -284,7 +284,7 @@
             <section>
                 <h2>Summary</h2>
                 <div class="card">
-                    Information Security student focusing on <strong>Web Penetration Testing</strong> and <strong>Security Engineering</strong>. Possess a solid foundation in network architecture (Cisco, Fortinet), operating systems, and virtualization. Experienced in combining offensive security mindsets with automation, such as developing LLM multi-agent testing tools and working with Docker/WSL2 environments. Capable of analyzing vulnerabilities and delivering clear, actionable security reports.
+                    3rd-year Information Security student focusing on <strong>Web Penetration Testing</strong>. I have a solid understanding of basic networking (OSI, TCP/IP, Protocols) and hands-on experience in identifying and exploiting OWASP Top 10 vulnerabilities (SQLi, XSS, CSRF, IDOR, etc.). Proficient in leveraging offensive security tools such as Burp Suite, Nmap, SQLMap, and Wireshark to conduct security assessments and write clear technical reports.
                 </div>
             </section>
 
@@ -313,11 +313,11 @@
                 <h2>Technical Toolkit & Core Skills</h2>
                 <div class="card">
                     <ul>
-                        <li><strong>Web AppSec (OWASP Top 10):</strong> In-depth knowledge of SQLi, XSS, CSRF, IDOR, SSRF, SSTI, insecure file upload, and path traversal vulnerabilities.</li>
+                        <li><strong>Web AppSec (OWASP Top 10):</strong> SQLi, XSS, CSRF, IDOR, SSRF, SSTI, insecure file upload, path traversal.</li>
                         <li><strong>Offensive Tooling:</strong> Burp Suite, Nmap, FFUF, Nessus, SQLMap, Wireshark, Katana, Subfinder.</li>
-                        <li><strong>Networking & Infrastructure:</strong> High-availability network design (Core/Distribution/Access layers), TCP/IP, Firewalls, IDS/IPS, EDR, SIEM.</li>
-                        <li><strong>System & Environments:</strong> Linux (Kali/Ubuntu), Windows Server, Docker containerization, WSL2, GNS3, VirtualBox.</li>
-                        <li><strong>Development & Automation:</strong> Python, Java (Spring Boot), Bash scripting, REST APIs, JWT. Built Spring Boot + JWT systems and integrated custom API wrappers.</li>
+                        <li><strong>Networking:</strong> OSI, TCP/IP, Network basic knowledge (Protocols, Network devices), Firewall, IDS/IPS, EDR, SIEM.</li>
+                        <li><strong>System & Environments:</strong> Linux (Kali/Ubuntu), Windows, Docker.</li>
+                        <li><strong>Dev & Secure Coding:</strong> Spring Boot, REST APIs, JWT; understanding of auth/authz flows, input validation, and upload hardening.</li>
                     </ul>
                 </div>
             </section>
@@ -356,9 +356,9 @@
     </footer>
 
     <script>
-        // Cấu hình GitHub Repository của bạn
+        // SỬA LẠI TÊN REPO CHÍNH XÁC THEO ẢNH CỦA BẠN
         const GITHUB_USER = "Vie4567";
-        const GITHUB_REPO = "portfolio"; // Hãy đảm bảo tên repo chính xác
+        const GITHUB_REPO = "Vie4567"; 
 
         // Hàm chuyển Tab
         function switchTab(tabId) {
@@ -393,13 +393,12 @@
                 const markdownFiles = files.filter(file => file.name.endsWith('.md'));
 
                 if (markdownFiles.length === 0) {
-                    container.innerHTML = `<div class="loading-state">Chưa có bài viết nào trong thư mục này.</div>`;
+                    container.innerHTML = `<div class="loading-state">Chưa có bài viết nào trong thư mục này. Hãy kiểm tra lại file đã nằm đúng cấp thư mục chưa.</div>`;
                     return;
                 }
 
                 // Parse tên file và tạo HTML
                 const htmlContent = markdownFiles.map(file => {
-                    // Cấu trúc tên file quy ước: YYYY-MM-DD_Tag_Tieu-de-bai-viet.md
                     const cleanName = file.name.replace('.md', '');
                     const parts = cleanName.split('_');
                     
@@ -434,7 +433,7 @@
                             </p>
                         </div>
                     `;
-                }).reverse().join(''); // Đảo ngược để bài mới (tên file lớn hơn) lên đầu
+                }).reverse().join(''); 
 
                 container.innerHTML = htmlContent;
 
@@ -446,10 +445,7 @@
 
         // Chạy ngay khi DOM Load xong
         document.addEventListener('DOMContentLoaded', () => {
-            // Quét thư mục "blogs" cho tab Blogs
             fetchGitHubFolder('blogs', 'blogsContainer');
-            
-            // Quét thư mục "writeups" cho tab Writeups
             fetchGitHubFolder('writeups', 'writeupsContainer');
         });
     </script>
