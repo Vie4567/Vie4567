@@ -46,8 +46,6 @@ Toàn bộ bài viết, nghiên cứu và báo cáo phân tích CTF/Incident Res
     *   **SOC153:** Truy vết hành vi thực thi PowerShell đáng ngờ trên hệ thống thiết lập backdoor.
     *   **SOC127:** Phân tích Web Access Log, nhận diện payload tấn công tự động từ công cụ SQLMap.
 
-*(Truy cập [Portfolio Website](https://vie4567.github.io/) để có trải nghiệm đọc trực quan nhất).*
-
 ---
 
 ## 📈 Thống Kê Hoạt Động (GitHub Stats)
