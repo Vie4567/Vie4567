@@ -1,106 +1,134 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nguyen Dang Khoa | SOC Portfolio</title>
+    <title>Nguyen Dang Khoa | Security Engineering</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
         :root {
-            --bg-color: #0f141c;
-            --text-color: #e1e7ee;
-            --text-muted: #95a5ac;
-            --accent-color: #5ccfe6;
-            --border-color: #232e3d;
-            --card-bg: #151d28;
-            --admin-bg: #1e293b;
+            --bg-color: #f8fafc;
+            --text-color: #1e293b;
+            --text-muted: #64748b;
+            --accent-color: #2563eb;
+            --accent-hover: #1d4ed8;
+            --border-color: #e2e8f0;
+            --card-bg: #ffffff;
+            --tag-bg: #f1f5f9;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
             line-height: 1.6;
             margin: 0;
             padding: 0;
+            -webkit-font-smoothing: antialiased;
         }
 
         .container {
-            max-width: 800px;
+            max-width: 850px;
             margin: 0 auto;
-            padding: 40px 20px;
+            padding: 50px 20px;
         }
 
         /* Header Styles */
         header {
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 20px;
-            margin-bottom: 25px;
+            padding-bottom: 25px;
+            margin-bottom: 30px;
         }
 
         h1 {
-            font-size: 2rem;
-            margin: 0 0 10px 0;
-            color: #ffffff;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin: 0 0 5px 0;
+            color: #0f172a;
+            letter-spacing: -0.02em;
         }
 
         .subtitle {
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             color: var(--accent-color);
-            font-weight: 600;
+            font-weight: 500;
             margin: 0 0 15px 0;
         }
 
         .contacts {
-            font-size: 0.9rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            font-size: 0.95rem;
             color: var(--text-muted);
         }
 
         .contacts a {
             color: var(--text-color);
             text-decoration: none;
-            border-bottom: 1px dotted var(--text-muted);
+            display: inline-flex;
+            align-items: center;
+            transition: color 0.2s;
         }
 
         .contacts a:hover {
             color: var(--accent-color);
-            border-bottom-color: var(--accent-color);
         }
 
         /* Navigation Bar Tabs */
         nav {
             display: flex;
-            gap: 10px;
-            border-bottom: 1px solid var(--border-color);
-            margin-bottom: 30px;
-            padding-bottom: 10px;
+            gap: 15px;
+            border-bottom: 2px solid var(--border-color);
+            margin-bottom: 35px;
         }
 
         .tab-btn {
             background: none;
-            border: 1px solid transparent;
+            border: none;
             color: var(--text-muted);
-            padding: 8px 16px;
-            font-size: 1rem;
+            padding: 10px 15px;
+            font-size: 1.05rem;
             font-weight: 600;
             cursor: pointer;
-            border-radius: 4px;
-            transition: all 0.2s ease;
+            position: relative;
+            transition: color 0.2s ease;
+        }
+
+        .tab-btn::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: transparent;
+            transition: background-color 0.2s ease;
         }
 
         .tab-btn:hover {
             color: var(--text-color);
-            background-color: var(--card-bg);
         }
 
         .tab-btn.active {
-            color: var(--bg-color);
+            color: var(--accent-color);
+        }
+
+        .tab-btn.active::after {
             background-color: var(--accent-color);
-            border-color: var(--accent-color);
         }
 
         /* View Control */
         .tab-content {
             display: none;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .tab-content.active {
@@ -108,15 +136,16 @@
         }
 
         section {
-            margin-bottom: 30px;
+            margin-bottom: 40px;
         }
 
         h2 {
-            font-size: 1.3rem;
-            border-left: 3px solid var(--accent-color);
-            padding-left: 10px;
+            font-size: 1.4rem;
+            color: #0f172a;
             margin-bottom: 20px;
-            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         p {
@@ -125,8 +154,9 @@
         }
 
         ul {
-            margin: 0;
+            margin: 0 0 20px 0;
             padding-left: 20px;
+            color: var(--text-color);
         }
 
         li {
@@ -134,148 +164,96 @@
         }
 
         strong {
-            color: #ffffff;
+            color: #0f172a;
+            font-weight: 600;
         }
 
         /* Grids & Cards */
-        .skills-grid {
+        .skills-grid, .edu-grid, .github-content-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1fr;
             gap: 15px;
         }
 
-        @media (max-width: 600px) {
-            .skills-grid { grid-template-columns: 1fr; }
-        }
-
-        .skill-category, .item-card {
+        .card {
             background-color: var(--card-bg);
-            padding: 15px;
-            border-radius: 4px;
+            padding: 20px;
+            border-radius: 10px;
             border: 1px solid var(--border-color);
-            margin-bottom: 15px;
+            box-shadow: var(--shadow-sm);
+            transition: box-shadow 0.2s ease, transform 0.2s ease;
         }
 
-        .skill-category h3 {
+        .card:hover {
+            box-shadow: var(--shadow-md);
+            transform: translateY(-2px);
+        }
+
+        .card h3 {
             margin: 0 0 10px 0;
-            font-size: 1rem;
-            color: var(--accent-color);
-        }
-
-        .card-title {
-            font-weight: bold;
             font-size: 1.1rem;
-            margin: 0 0 5px 0;
-        }
-
-        .card-title a {
-            color: #ffffff;
-            text-decoration: none;
-        }
-
-        .card-title a:hover {
-            color: var(--accent-color);
+            color: #0f172a;
         }
 
         .card-meta {
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             color: var(--text-muted);
-            margin-bottom: 10px;
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
         }
 
         .tag {
-            background-color: var(--bg-color);
+            background-color: var(--tag-bg);
             color: var(--accent-color);
-            padding: 2px 8px;
-            border-radius: 3px;
-            font-size: 0.8rem;
-            border: 1px solid var(--border-color);
-            margin-right: 5px;
-            display: inline-block;
-            margin-bottom: 5px;
-        }
-
-        /* CMS Admin Control Panel Styles */
-        .admin-trigger {
-            text-align: center;
-            margin-top: 40px;
-        }
-
-        .btn {
-            background-color: #232e3d;
-            color: var(--text-color);
-            border: 1px solid var(--border-color);
-            padding: 8px 16px;
-            cursor: pointer;
-            border-radius: 4px;
-            font-size: 0.85rem;
-        }
-
-        .btn:hover {
-            border-color: var(--accent-color);
-            color: #fff;
-        }
-
-        .btn-accent {
-            background-color: var(--accent-color);
-            color: var(--bg-color);
-            font-weight: bold;
-            border: none;
-        }
-
-        .btn-accent:hover {
-            background-color: #4bc3dc;
-            color: var(--bg-color);
-        }
-
-        .btn-danger {
-            background-color: #ef4444;
-            color: white;
-            border: none;
-        }
-
-        #adminPanel {
-            display: none;
-            background-color: var(--admin-bg);
-            border: 1px solid var(--accent-color);
-            padding: 20px;
+            padding: 4px 10px;
             border-radius: 6px;
-            margin-top: 30px;
-        }
-
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-            font-size: 0.9rem;
-            font-weight: bold;
-        }
-
-        .form-group input, .form-group textarea, .form-group select {
-            width: 100%;
-            padding: 8px;
-            background-color: var(--bg-color);
+            font-size: 0.8rem;
+            font-weight: 500;
             border: 1px solid var(--border-color);
-            color: var(--text-color);
-            border-radius: 4px;
-            box-sizing: border-box;
+            display: inline-block;
+            margin: 0 6px 6px 0;
         }
 
-        .form-row {
-            display: flex;
-            gap: 10px;
+        .item-title {
+            font-size: 1.15rem;
+            font-weight: 600;
+            margin: 0 0 8px 0;
+        }
+
+        .item-title a {
+            color: #0f172a;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .item-title a:hover {
+            color: var(--accent-color);
+        }
+
+        .loading-state {
+            text-align: center;
+            padding: 30px;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            background: var(--card-bg);
+            border-radius: 10px;
+            border: 1px dashed var(--border-color);
         }
 
         footer {
-            margin-top: 50px;
-            border-top: 1px solid var(--border-color);
-            padding-top: 20px;
-            font-size: 0.85rem;
+            margin-top: 60px;
+            padding: 30px 0;
+            font-size: 0.9rem;
             color: var(--text-muted);
             text-align: center;
+            border-top: 1px solid var(--border-color);
+        }
+
+        @media (max-width: 600px) {
+            h1 { font-size: 2rem; }
+            .card-meta { flex-direction: column; gap: 5px; }
+            nav { overflow-x: auto; white-space: nowrap; padding-bottom: 5px; }
         }
     </style>
 </head>
@@ -284,264 +262,105 @@
     <div class="container">
         
         <header>
-            <h1 id="view-name">Nguyen Dang Khoa</h1>
-            <div class="subtitle" id="view-role">Intern SOC Analyst / Blue Teamer</div>
+            <h1>Nguyen Dang Khoa</h1>
+            <div class="subtitle">Security Engineering</div>
             <div class="contacts">
-                Email: <a href="mailto:khoazsz1985@gmail.com" id="view-email">khoazsz1985@gmail.com</a> &nbsp;&bull;&nbsp;
-                GitHub: <a href="https://github.com/Vie4567" target="_blank" id="view-github">Vie4567</a> &nbsp;&bull;&nbsp;
-                SĐT: <span id="view-phone">+84 365 164 510</span>
+                <span>📍 Ho Chi Minh City, Viet Nam</span>
+                <span>🎂 02 December 2005</span>
+                <span>📧 <a href="mailto:khoazsz1985@gmail.com">khoazsz1985@gmail.com</a></span>
+                <span>📱 +84 365 164 510</span>
+                <span>💻 <a href="https://github.com/Vie4567" target="_blank">github.com/Vie4567</a></span>
             </div>
         </header>
 
         <nav>
-            <button class="tab-btn active" onclick="switchTab('about')">Thông Tin Cá Nhân</button>
-            <button class="tab-btn" onclick="switchTab('labs')">Phòng Lab Write-up</button>
-            <button class="tab-btn" onclick="switchTab('projects')">Dự Án Kỹ Thuật</button>
+            <button class="tab-btn active" onclick="switchTab('about')">About Me</button>
+            <button class="tab-btn" onclick="switchTab('blogs')">Blogs</button>
+            <button class="tab-btn" onclick="switchTab('writeups')">Writeups</button>
         </nav>
 
+        <!-- TAB: ABOUT ME -->
         <div id="tab-about" class="tab-content active">
             <section>
-                <h2>Giới Thiệu Bản Thân</h2>
-                <p id="view-summary">
-                    Sinh viên ngành An toàn thông tin định hướng chuyên sâu vào <strong>Giám sát an ninh mạng và Phản ứng sự cố (SOC Tier 1)</strong>. 
-                    Sở hữu tư duy "Offensive-driven Defense" giúp nhận diện nhanh chóng các hành vi bất thường, giải mã payload độc hại và cấu hình luật phát hiện trên hệ thống SIEM.
-                </p>
+                <h2>Summary</h2>
+                <div class="card">
+                    Information Security student focusing on <strong>Web Penetration Testing</strong> and <strong>Security Engineering</strong>. Possess a solid foundation in network architecture (Cisco, Fortinet), operating systems, and virtualization. Experienced in combining offensive security mindsets with automation, such as developing LLM multi-agent testing tools and working with Docker/WSL2 environments. Capable of analyzing vulnerabilities and delivering clear, actionable security reports.
+                </div>
             </section>
 
             <section>
-                <h2>Kiến Thức & Kỹ Năng Cốt Lõi</h2>
-                <div class="skills-grid">
-                    <div class="skill-category">
-                        <h3>Security Monitoring & OSINT</h3>
-                        <ul id="view-skills-sec">
-                            <li>Phân tích log: Windows Event Logs (Security, Sysmon), Linux Syslogs.</li>
-                            <li>Điều tra IoC qua Threat Intel: VirusTotal, AbuseIPDB, Shodan.</li>
-                            <li>Sử dụng nền tảng: Mô phỏng SOC (LetsDefend), ý niệm SIEM (Splunk, Wazuh).</li>
-                        </ul>
+                <h2>Education & Training</h2>
+                <div class="edu-grid">
+                    <div class="card">
+                        <div class="card-meta">
+                            <span style="font-weight: 600; color: #0f172a;">Ho Chi Minh City University of Technology and Engineering (HCMUTE)</span>
+                            <span>2023 – Present</span>
+                        </div>
+                        <p style="margin-bottom: 5px;">Information Security (3rd-year student)</p>
+                        <p style="font-size: 0.9rem; color: var(--text-muted); margin: 0;">Relevant Coursework: Computer Networks, Network Attacks, Wireless Security, Operating Systems, Web Security.</p>
                     </div>
-                    <div class="skill-category">
-                        <h3>Vulnerability & Vectors</h3>
-                        <ul id="view-skills-vuln">
-                            <li>Hiểu sâu lỗ hổng OWASP Top 10 (SQLi, XSS, RCE, File Upload).</li>
-                            <li>Sử dụng công cụ rà quét/đọc vết mạng: Burp Suite, Nmap, Wireshark, SQLMap.</li>
-                            <li>Tư duy ánh xạ chuỗi hành vi xâm nhập vào khung <strong>MITRE ATT&CK</strong>.</li>
-                        </ul>
-                    </div>
-                    <div class="skill-category">
-                        <h3>Hạ Tầng Mạng & HĐH</h3>
-                        <ul id="view-skills-infra">
-                            <li>Kiến thức TCP/IP, DNS, Routing/Switching, DMZ, Network Segmentation.</li>
-                            <li>Quản trị tốt trên hệ điều hành: Linux (Ubuntu/Kali), Windows Server.</li>
-                            <li>Kinh nghiệm môi trường ảo hóa: Docker, WSL2, GNS3.</li>
-                        </ul>
-                    </div>
-                    <div class="skill-category">
-                        <h3>Lập Trình & Tự Động Hóa</h3>
-                        <ul id="view-skills-dev">
-                            <li>Viết mã script phân tích/bóc tách dữ liệu log thô bằng <strong>Python</strong> và Bash.</li>
-                            <li>Hiểu cơ chế hoạt động, cơ chế ghi log của mã nguồn backend (Java Spring Boot).</li>
-                        </ul>
+                    <div class="card">
+                        <div class="card-meta">
+                            <span style="font-weight: 600; color: #0f172a;">Thu Khoa Nghia Specialized High School</span>
+                            <span>2021 – 2023</span>
+                        </div>
+                        <p style="margin: 0;">Information Technology</p>
                     </div>
                 </div>
             </section>
-        </div>
 
-        <div id="tab-labs" class="tab-content">
             <section>
-                <h2>SOC Investigation Write-ups</h2>
-                <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 20px;">
-                    Danh sách các bài phân tích, điều tra các sự cố bảo mật từ quá trình giải bài Lab thực tế.
-                </p>
-                <div class="writeup-list" id="labContainer">
-                    </div>
+                <h2>Technical Toolkit & Core Skills</h2>
+                <div class="card">
+                    <ul>
+                        <li><strong>Web AppSec (OWASP Top 10):</strong> In-depth knowledge of SQLi, XSS, CSRF, IDOR, SSRF, SSTI, insecure file upload, and path traversal vulnerabilities.</li>
+                        <li><strong>Offensive Tooling:</strong> Burp Suite, Nmap, FFUF, Nessus, SQLMap, Wireshark, Katana, Subfinder.</li>
+                        <li><strong>Networking & Infrastructure:</strong> High-availability network design (Core/Distribution/Access layers), TCP/IP, Firewalls, IDS/IPS, EDR, SIEM.</li>
+                        <li><strong>System & Environments:</strong> Linux (Kali/Ubuntu), Windows Server, Docker containerization, WSL2, GNS3, VirtualBox.</li>
+                        <li><strong>Development & Automation:</strong> Python, Java (Spring Boot), Bash scripting, REST APIs, JWT. Built Spring Boot + JWT systems and integrated custom API wrappers.</li>
+                    </ul>
+                </div>
             </section>
         </div>
 
-        <div id="tab-projects" class="tab-content">
+        <!-- TAB: BLOGS -->
+        <div id="tab-blogs" class="tab-content">
             <section>
-                <h2>Selected Technical Projects</h2>
-                <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 20px;">
-                    Các công cụ và giải pháp bảo mật tiêu biểu do tôi tự phát triển và thiết kế hệ thống.
+                <h2>Technical Blogs & Research</h2>
+                <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 25px;">
+                    Research notes, tool developments, and deep-dives into security architecture, blockchain consensus, and automation.
                 </p>
-                <div class="writeup-list" id="projectContainer">
-                    </div>
+                <div class="github-content-grid" id="blogsContainer">
+                    <div class="loading-state">⏳ Đang lấy dữ liệu từ GitHub...</div>
+                </div>
             </section>
         </div>
 
-        <div class="admin-trigger">
-            <button class="btn" onclick="toggleAdminPanel()">⚙️ Chế Độ Quản Lý & Cập Nhật Thông Tin</button>
-        </div>
-
-        <div id="adminPanel">
-            <h2 style="border-color: #ef4444; margin-top: 0;">Bảng Quản Lý Thông Tin</h2>
-            
-            <section style="background: rgba(0,0,0,0.2); padding: 15px; border-radius: 4px;">
-                <h3 style="margin-top: 0; color: var(--accent-color);">1. Cập nhật Profile Cá Nhân</h3>
-                <div class="form-row">
-                    <div class="form-group" style="flex: 2;">
-                        <label>Họ và Tên</label>
-                        <input type="text" id="form-name">
-                    </div>
-                    <div class="form-group" style="flex: 2;">
-                        <label>Vị trí ứng tuyển</label>
-                        <input type="text" id="form-role">
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group" style="flex:1;">
-                        <label>Email</label>
-                        <input type="text" id="form-email">
-                    </div>
-                    <div class="form-group" style="flex:1;">
-                        <label>GitHub</label>
-                        <input type="text" id="form-github">
-                    </div>
-                    <div class="form-group" style="flex:1;">
-                        <label>SĐT</label>
-                        <input type="text" id="form-phone">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label>Giới thiệu bản thân (Tóm tắt)</label>
-                    <textarea id="form-summary" rows="3"></textarea>
-                </div>
-                <button class="btn btn-accent" onclick="saveProfile()">Cập Nhật Profile Lên Giao Diện</button>
-            </section>
-
-            <section style="background: rgba(0,0,0,0.2); padding: 15px; border-radius: 4px; margin-top: 20px;">
-                <h3 style="margin-top: 0; color: var(--accent-color);">2. Đăng Bài Viết/Dự Án Mới</h3>
-                <div class="form-group">
-                    <label>Phân loại mục đăng</label>
-                    <select id="form-item-type">
-                        <option value="lab">Đăng vào mục: Phòng Lab Write-up</option>
-                        <option value="project">Đăng vào mục: Dự An Kỹ Thuật</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Tiêu đề bài viết / Tên dự án</label>
-                    <input type="text" id="form-item-title" placeholder="Ví dụ: [LetsDefend] Sự cố Malware Phishing...">
-                </div>
-                <div class="form-row">
-                    <div class="form-group" style="flex: 1;">
-                        <label>Thời gian / Ngày làm</label>
-                        <input type="text" id="form-item-date" placeholder="Ví dụ: 01/06/2026 hoặc 2025">
-                    </div>
-                    <div class="form-group" style="flex: 1;">
-                        <label>Nguồn nền tảng / Tech Stack</label>
-                        <input type="text" id="form-item-source" placeholder="Ví dụ: Windows Sysmon hoặc Python, Neo4j">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label>Đường dẫn tệp Write-up (Lưu trên GitHub)</label>
-                    <input type="text" id="form-item-link" placeholder="Ví dụ: ./writeups/bai-lam.md hoặc link github">
-                </div>
-                <div class="form-group">
-                    <label>Các thẻ Tag phân loại (Cách nhau bằng dấu phẩy)</label>
-                    <input type="text" id="form-item-tags" placeholder="Ví dụ: Log Analysis, SIEM, Malware">
-                </div>
-                <div class="form-group">
-                    <label>Mô tả tóm tắt nội dung bài điều tra / Tính năng cốt lõi của dự án</label>
-                    <textarea id="form-item-summary" rows="3" placeholder="Viết 2-3 câu tóm tắt hành vi hệ thống..."></textarea>
-                </div>
-                <button class="btn btn-accent" onclick="addItem()">Thêm Bài Viết Lên Giao Diện</button>
-            </section>
-
-            <section style="background: rgba(239, 68, 68, 0.1); padding: 15px; border-radius: 4px; margin-top: 20px; border: 1px dashed #ef4444;">
-                <h3 style="margin-top: 0; color: #f87171;">3. Lưu Cố Định Lên GitHub (Rất Quan Trọng)</h3>
-                <p style="font-size: 0.85rem; color: #cbd5e1;">
-                    Vì lý do bảo mật tĩnh, dữ liệu bạn sửa trên trình duyệt sẽ biến mất nếu đổi máy hoặc xóa cache. Để lưu cố định mãi mãi lên web GitHub Pages của bạn, hãy bấm nút bên dưới để lấy tệp cấu hình chứa mã sạch, rồi dán đè vào code của bạn.
+        <!-- TAB: WRITEUPS -->
+        <div id="tab-writeups" class="tab-content">
+            <section>
+                <h2>CTF & Incident Response Writeups</h2>
+                <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 25px;">
+                    Detailed breakdowns of CTF challenges, lab environments, and real-world vulnerability exploitation patterns.
                 </p>
-                <button class="btn btn-danger" onclick="exportNewDataConfig()">Tải Mã Cấu Hình Để Lưu Lâu Dài</button>
+                <div class="github-content-grid" id="writeupsContainer">
+                    <div class="loading-state">⏳ Đang lấy dữ liệu từ GitHub...</div>
+                </div>
             </section>
         </div>
 
     </div>
 
     <footer>
-        &copy; 2026 Nguyen Dang Khoa. Built with SPA Architecture.
+        &copy; 2026 Nguyen Dang Khoa. Designed with minimalist aesthetics & Docs-as-Code philosophy.
     </footer>
 
     <script>
-        // =========================================================================
-        // CƠ SỞ DỮ LIỆU GỐC (BẠN CÓ THỂ COPIED MÃ XUẤT RA ĐÈ VÀO ĐÂY ĐỂ LƯU CHÍNH THỨC)
-        // =========================================================================
-const defaultProfile = {
-          "name": "Nguyen Dang Khoa",
-          "role": "Intern SOC Analyst / Blue Teamer",
-          "email": "khoazsz1985@gmail.com",
-          "github": "Vie4567",
-          "phone": "+84 365 164 510",
-          "summary": "Sinh viên ngành An toàn thông tin định hướng chuyên sâu vào <strong>Giám sát an ninh mạng và Phản ứng sự cố (SOC Tier 1)</strong>. Sở hữu tư duy \"Offensive-driven Defense\" giúp nhận diện nhanh chóng các hành vi bất thường, giải mã payload độc hại và cấu hình luật phát hiện trên hệ thống SIEM."
-};
+        // Cấu hình GitHub Repository của bạn
+        const GITHUB_USER = "Vie4567";
+        const GITHUB_REPO = "portfolio"; // Hãy đảm bảo tên repo chính xác
 
-const defaultLabs = [
-          {
-                    "title": "[LetsDefend] Write up SOC205 - Malicious Macro has been executed",
-                    "date": "01/06/2026",
-                    "source": "[LetsDefend] app.letsdefend.io",
-                    "fileLink": "https://app.notion.com/p/SOC205-Malicious-Macro-has-been-executed-3728baa9cc77800c843ecb18344814bd",
-                    "tags": [
-                              "Log analyst",
-                              "macro (.docm)",
-                              "Malware",
-                              "Phishing",
-                              "olevba tool",
-                              "PowerShell Script"
-                    ],
-                    "summary": "True Positive Alert, người dùng tải file word có chứa macro (.docm) thông qua phishing email, khi mở file doc thì thực thi PowerShell Script kết nối C2 để tải malware về máy nạn nhân."
-          },
-          {
-                    "title": "[LetsDefend] Write up SOC153 - Suspicious Powershell Script Executed",
-                    "date": "31/05/2026",
-                    "source": "[LetsDefend] app.letsdefend.io",
-                    "fileLink": "https://app.notion.com/p/SOC153-Suspicious-Powershell-Script-Executed-3718baa9cc778029b82ec70d8f482a98",
-                    "tags": [
-                              "Log analyst",
-                              "Malware",
-                              "C2",
-                              "PowerShell Script"
-                    ],
-                    "summary": "Người dùng truy cập URL lạ và tải file độc hại với hành vi là sử dụng PowerShell Script đáng ngờ và kết nối với C2."
-          },
-          {
-                    "title": "[LetsDefend] Write up SOC127 - SQL Injection Detected",
-                    "date": "30/05/2026",
-                    "source": "[LetsDefend] app.letsdefend.io",
-                    "fileLink": "https://app.notion.com/p/SOC127-SQL-Injection-Detected-3728baa9cc7780d48ea1c0d45e480ca9",
-                    "tags": [
-                              "Log Analyst",
-                              "SIEM",
-                              "SQL Injection",
-                              "SQLmap"
-                    ],
-                    "summary": "Cảnh báo này là một trường hợp True Positive thông tin rằng một host bị tấn công SQL Injection bởi 1 IP độc hại đến từ Trung Quốc bằng công cụ SQLmap."
-          }
-];
-
-const defaultProjects = [
-          {
-                    "title": "Multi-agent automated penetration testing tool",
-                    "date": "20/05/2026",
-                    "source": "Langgraph, Neo4j, Python, PostgreSQL",
-                    "fileLink": "https://github.com/Vie4567/Pentest-automation-tool",
-                    "tags": [
-                              "Multi-agent",
-                              "Automation Tool",
-                              "Pentest",
-                              "Langgraph",
-                              "Neo4j",
-                              "Python"
-                    ],
-                    "summary": "Tool dùng llm multi-agent để tự động hóa quá trình pentest ứng dụng bằng python, framework langgraph kết hợp với Neo4j."
-          }
-];
-
-        // Khởi tạo trạng thái dữ liệu từ LocalStorage hoặc dữ liệu mặc định bên trên
-        let profileData = JSON.parse(localStorage.getItem('soc_profile')) || defaultProfile;
-        let labsData = JSON.parse(localStorage.getItem('soc_labs')) || defaultLabs;
-        let projectsData = JSON.parse(localStorage.getItem('soc_projects')) || defaultProjects;
-
-        // Hàm chuyển đổi giữa các Tab
+        // Hàm chuyển Tab
         function switchTab(tabId) {
             document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
@@ -550,155 +369,89 @@ const defaultProjects = [
             event.target.classList.add('active');
         }
 
-        // Hiện / Ẩn bảng quản lý thông tin
-        function toggleAdminPanel() {
-            const panel = document.getElementById('adminPanel');
-            panel.style.display = (panel.style.display === 'block') ? 'none' : 'block';
-            if(panel.style.display === 'block') {
-                loadAdminFormFields();
-            }
-        }
-
-        // Đổ dữ liệu cũ vào form admin để sửa
-        function loadAdminFormFields() {
-            document.getElementById('form-name').value = profileData.name;
-            document.getElementById('form-role').value = profileData.role;
-            document.getElementById('form-email').value = profileData.email;
-            document.getElementById('form-github').value = profileData.github;
-            document.getElementById('form-phone').value = profileData.phone;
-            document.getElementById('form-summary').value = profileData.summary.replace(/<\/?[^>]+(>|$)/g, ""); // strip html tags
-        }
-
-        // Lưu profile từ admin form
-        function saveProfile() {
-            profileData.name = document.getElementById('form-name').value;
-            profileData.role = document.getElementById('form-role').value;
-            profileData.email = document.getElementById('form-email').value;
-            profileData.github = document.getElementById('form-github').value;
-            profileData.phone = document.getElementById('form-phone').value;
-            profileData.summary = document.getElementById('form-summary').value;
-
-            localStorage.setItem('soc_profile', JSON.stringify(profileData));
-            applyDataToDOM();
-            alert("Đã cập nhật thông tin cá nhân lên giao diện tạm thời!");
-        }
-
-        // Thêm mới một bài Lab hoặc Project
-        function addItem() {
-            const type = document.getElementById('form-item-type').value;
-            const newItem = {
-                title: document.getElementById('form-item-title').value,
-                date: document.getElementById('form-item-date').value,
-                source: document.getElementById('form-item-source').value,
-                fileLink: document.getElementById('form-item-link').value,
-                tags: document.getElementById('form-item-tags').value.split(',').map(t => t.trim()),
-                summary: document.getElementById('form-item-summary').value
-            };
-
-            if(!newItem.title || !newItem.fileLink) {
-                alert("Vui lòng điền tối thiểu Tiêu đề và Đường dẫn tệp!");
-                return;
-            }
-
-            if (type === 'lab') {
-                labsData.unshift(newItem);
-                localStorage.setItem('soc_labs', JSON.stringify(labsData));
-            } else {
-                projectsData.unshift(newItem);
-                localStorage.setItem('soc_projects', JSON.stringify(projectsData));
-            }
-
-            applyDataToDOM();
-            // Clear forms
-            document.getElementById('form-item-title').value = '';
-            document.getElementById('form-item-link').value = '';
-            document.getElementById('form-item-tags').value = '';
-            document.getElementById('form-item-summary').value = '';
-            alert("Đã thêm bài viết mới lên màn hình!");
-        }
-
-        // Hàm xóa bài viết (Dành cho việc quản lý dữ liệu nhanh)
-        function deleteItem(type, index) {
-            if(confirm("Bạn có chắc chắn muốn xóa bài viết này không?")) {
-                if (type === 'lab') {
-                    labsData.splice(index, 1);
-                    localStorage.setItem('soc_labs', JSON.stringify(labsData));
-                } else {
-                    projectsData.splice(index, 1);
-                    localStorage.setItem('soc_projects', JSON.stringify(projectsData));
+        // Hàm chung để quét Markdown từ một thư mục cụ thể trên GitHub
+        async function fetchGitHubFolder(folderName, containerId) {
+            const container = document.getElementById(containerId);
+            const apiUrl = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/${folderName}`;
+            
+            try {
+                const response = await fetch(apiUrl);
+                
+                if (response.status === 404) {
+                    container.innerHTML = `<div class="loading-state">Thư mục <strong>${folderName}</strong> chưa được tạo trên GitHub hoặc đang trống.</div>`;
+                    return;
                 }
-                applyDataToDOM();
-            }
-        }
+                
+                if (response.status === 403) {
+                    container.innerHTML = `<div class="loading-state">Quá giới hạn truy cập API của GitHub. Vui lòng thử lại sau.</div>`;
+                    return;
+                }
 
-        // Hàm kết xuất và vẽ dữ liệu ra màn hình HTML
-        function applyDataToDOM() {
-            // Render Profile
-            document.getElementById('view-name').innerText = profileData.name;
-            document.getElementById('view-role').innerText = profileData.role;
-            document.getElementById('view-email').innerText = profileData.email;
-            document.getElementById('view-email').href = `mailto:${profileData.email}`;
-            document.getElementById('view-github').innerText = profileData.github;
-            document.getElementById('view-github').href = `https://github.com/${profileData.github}`;
-            document.getElementById('view-phone').innerText = profileData.phone;
-            document.getElementById('view-summary').innerHTML = profileData.summary;
+                const files = await response.json();
+                
+                // Lọc ra các file .md
+                const markdownFiles = files.filter(file => file.name.endsWith('.md'));
 
-            // Render Labs
-            const labContainer = document.getElementById('labContainer');
-            if(labsData.length === 0) {
-                labContainer.innerHTML = '<p style="color: var(--text-muted);">Chưa có bài write-up lab nào.</p>';
-            } else {
-                labContainer.innerHTML = labsData.map((item, idx) => `
-                    <div class="writeup-item">
-                        <div class="writeup-title">
-                            <a href="${item.fileLink}" target="_blank">${item.title}</a>
-                            <button class="btn btn-danger" style="padding: 2px 6px; font-size: 0.7rem; float: right;" onclick="deleteItem('lab', ${idx})">Xóa</button>
+                if (markdownFiles.length === 0) {
+                    container.innerHTML = `<div class="loading-state">Chưa có bài viết nào trong thư mục này.</div>`;
+                    return;
+                }
+
+                // Parse tên file và tạo HTML
+                const htmlContent = markdownFiles.map(file => {
+                    // Cấu trúc tên file quy ước: YYYY-MM-DD_Tag_Tieu-de-bai-viet.md
+                    const cleanName = file.name.replace('.md', '');
+                    const parts = cleanName.split('_');
+                    
+                    let date = "Recent";
+                    let tag = "Tech";
+                    let title = cleanName.replaceAll('-', ' ');
+
+                    if (parts.length >= 3) {
+                        date = parts[0]; 
+                        tag = parts[1];
+                        title = parts.slice(2).join(' ').replaceAll('-', ' '); 
+                    } else if (parts.length === 2) {
+                        tag = parts[0];
+                        title = parts[1].replaceAll('-', ' ');
+                    }
+
+                    return `
+                        <div class="card">
+                            <div class="item-title">
+                                <a href="${file.html_url}" target="_blank">${title}</a>
+                            </div>
+                            <div class="card-meta">
+                                <span style="color: #334155; font-weight: 500;">Source: GitHub</span>
+                                <span>${date}</span>
+                            </div>
+                            <div style="margin-bottom: 5px;">
+                                <span class="tag">${tag}</span>
+                                <span class="tag">Markdown</span>
+                            </div>
+                            <p style="margin: 10px 0 0 0; font-size: 0.9rem; color: var(--text-muted);">
+                                Click vào tiêu đề để đọc toàn bộ nội dung trực tiếp trên GitHub.
+                            </p>
                         </div>
-                        <div class="card-meta">Ngày nộp: ${item.date} &nbsp;|&nbsp; Hệ thống: ${item.source}</div>
-                        <div>${item.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
-                        <p style="margin-top: 10px; font-size: 0.9rem; color: var(--text-muted);">${item.summary}</p>
-                    </div>
-                `).join('');
-            }
+                    `;
+                }).reverse().join(''); // Đảo ngược để bài mới (tên file lớn hơn) lên đầu
 
-            // Render Projects
-            const projectContainer = document.getElementById('projectContainer');
-            if(projectsData.length === 0) {
-                projectContainer.innerHTML = '<p style="color: var(--text-muted);">Chưa có dự án nào được đăng.</p>';
-            } else {
-                projectContainer.innerHTML = projectsData.map((item, idx) => `
-                    <div class="item-card">
-                        <div class="writeup-title">
-                            <a href="${item.fileLink}" target="_blank">${item.title}</a>
-                            <button class="btn btn-danger" style="padding: 2px 6px; font-size: 0.7rem; float: right;" onclick="deleteItem('project', ${idx})">Xóa</button>
-                        </div>
-                        <div class="card-meta">Thời gian: ${item.date} &nbsp;|&nbsp; Tech Stack: ${item.source}</div>
-                        <div>${item.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
-                        <p style="margin-top: 10px; font-size: 0.9rem; color: var(--text-muted);">${item.summary}</p>
-                    </div>
-                `).join('');
+                container.innerHTML = htmlContent;
+
+            } catch (error) {
+                console.error(`Lỗi khi tải folder ${folderName}:`, error);
+                container.innerHTML = `<div class="loading-state">Lỗi kết nối. Không thể tải dữ liệu lúc này.</div>`;
             }
         }
 
-        // TỰ ĐỘNG XUẤT RA KHỐI MÃ CẤU HÌNH ĐỂ COPIED NGƯỢC VÀO CODE GỐC
-        function exportNewDataConfig() {
-            const configString = 
-`// Hãy sao chép 3 cụm biến này dán đè vào vị trí dòng 342 của file index.html để lưu cố định dữ liệu:
-const defaultProfile = ${JSON.stringify(profileData, null, 12)};
-
-const defaultLabs = ${JSON.stringify(labsData, null, 12)};
-
-const defaultProjects = ${JSON.stringify(projectsData, null, 12)};`;
-
-            const blob = new Blob([configString], {type: "text/plain;charset=utf-8"});
-            const tempLink = document.createElement("a");
-            tempLink.href = URL.createObjectURL(blob);
-            tempLink.download = "soc_portfolio_config.txt";
-            tempLink.click();
-        }
-
-        // Chạy rải dữ liệu ngay khi tải trang
-        document.addEventListener('DOMContentLoaded', applyDataToDOM);
+        // Chạy ngay khi DOM Load xong
+        document.addEventListener('DOMContentLoaded', () => {
+            // Quét thư mục "blogs" cho tab Blogs
+            fetchGitHubFolder('blogs', 'blogsContainer');
+            
+            // Quét thư mục "writeups" cho tab Writeups
+            fetchGitHubFolder('writeups', 'writeupsContainer');
+        });
     </script>
 </body>
 </html>
