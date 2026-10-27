@@ -356,98 +356,110 @@
     </footer>
 
     <script>
-        // SỬA LẠI TÊN REPO CHÍNH XÁC THEO ẢNH CỦA BẠN
-        const GITHUB_USER = "Vie4567";
-        const GITHUB_REPO = "Vie4567"; 
+    const GITHUB_USER = "Vie4567";
+    const GITHUB_REPO = "Vie4567"; 
 
-        // Hàm chuyển Tab
-        function switchTab(tabId) {
-            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+    function switchTab(tabId) {
+        document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+        document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+        
+        document.getElementById(`tab-${tabId}`).classList.add('active');
+        if(event) event.target.classList.add('active');
+    }z
+
+    async function fetchGitHubFolder(folderName, containerId) {
+        const container = document.getElementById(containerId);
+        const apiUrl = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/${folderName}`;
+        
+        try {
+            const response = await fetch(apiUrl);
             
-            document.getElementById(`tab-${tabId}`).classList.add('active');
-            event.target.classList.add('active');
-        }
-
-        // Hàm chung để quét Markdown từ một thư mục cụ thể trên GitHub
-        async function fetchGitHubFolder(folderName, containerId) {
-            const container = document.getElementById(containerId);
-            const apiUrl = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/${folderName}`;
-            
-            try {
-                const response = await fetch(apiUrl);
-                
-                if (response.status === 404) {
-                    container.innerHTML = `<div class="loading-state">Thư mục <strong>${folderName}</strong> chưa được tạo trên GitHub hoặc đang trống.</div>`;
-                    return;
-                }
-                
-                if (response.status === 403) {
-                    container.innerHTML = `<div class="loading-state">Quá giới hạn truy cập API của GitHub. Vui lòng thử lại sau.</div>`;
-                    return;
-                }
-
-                const files = await response.json();
-                
-                // Lọc ra các file .md
-                const markdownFiles = files.filter(file => file.name.endsWith('.md'));
-
-                if (markdownFiles.length === 0) {
-                    container.innerHTML = `<div class="loading-state">Chưa có bài viết nào trong thư mục này. Hãy kiểm tra lại file đã nằm đúng cấp thư mục chưa.</div>`;
-                    return;
-                }
-
-                // Parse tên file và tạo HTML
-                const htmlContent = markdownFiles.map(file => {
-                    const cleanName = file.name.replace('.md', '');
-                    const parts = cleanName.split('_');
-                    
-                    let date = "Recent";
-                    let tag = "Tech";
-                    let title = cleanName.replaceAll('-', ' ');
-
-                    if (parts.length >= 3) {
-                        date = parts[0]; 
-                        tag = parts[1];
-                        title = parts.slice(2).join(' ').replaceAll('-', ' '); 
-                    } else if (parts.length === 2) {
-                        tag = parts[0];
-                        title = parts[1].replaceAll('-', ' ');
-                    }
-
-                    return `
-                        <div class="card">
-                            <div class="item-title">
-                                <a href="${file.html_url}" target="_blank">${title}</a>
-                            </div>
-                            <div class="card-meta">
-                                <span style="color: #334155; font-weight: 500;">Source: GitHub</span>
-                                <span>${date}</span>
-                            </div>
-                            <div style="margin-bottom: 5px;">
-                                <span class="tag">${tag}</span>
-                                <span class="tag">Markdown</span>
-                            </div>
-                            <p style="margin: 10px 0 0 0; font-size: 0.9rem; color: var(--text-muted);">
-                                Click vào tiêu đề để đọc toàn bộ nội dung trực tiếp trên GitHub.
-                            </p>
-                        </div>
-                    `;
-                }).reverse().join(''); 
-
-                container.innerHTML = htmlContent;
-
-            } catch (error) {
-                console.error(`Lỗi khi tải folder ${folderName}:`, error);
-                container.innerHTML = `<div class="loading-state">Lỗi kết nối. Không thể tải dữ liệu lúc này.</div>`;
+            if (response.status === 404) {
+                container.innerHTML = `<div class="loading-state">Thư mục <strong>${folderName}</strong> chưa được tạo trên GitHub.</div>`;
+                return;
             }
-        }
+            if (response.status === 403) {
+                container.innerHTML = `<div class="loading-state">Quá giới hạn truy cập API của GitHub. Thử lại sau.</div>`;
+                return;
+            }
 
-        // Chạy ngay khi DOM Load xong
-        document.addEventListener('DOMContentLoaded', () => {
-            fetchGitHubFolder('blogs', 'blogsContainer');
-            fetchGitHubFolder('writeups', 'writeupsContainer');
-        });
-    </script>
+            const items = await response.json();
+            let markdownFiles = [];
+
+            // Duyệt danh sách items để lấy cả file .md trực tiếp lẫn file .md nằm trong thư mục con
+            for (const item of items) {
+                if (item.type === 'file' && item.name.endsWith('.md')) {
+                    markdownFiles.push(item);
+                } else if (item.type === 'dir') {
+                    // Nếu là thư mục con, gọi API lấy file .md bên trong
+                    const subRes = await fetch(item.url);
+                    if (subRes.ok) {
+                        const subItems = await subRes.json();
+                        const subMd = subItems.filter(f => f.name.endsWith('.md'));
+                        markdownFiles.push(...subMd);
+                    }
+                }
+            }
+
+            if (markdownFiles.length === 0) {
+                container.innerHTML = `<div class="loading-state">Chưa có bài viết nào trong thư mục này.</div>`;
+                return;
+            }
+
+            const htmlContent = markdownFiles.map(file => {
+                const cleanName = file.name.replace('.md', '');
+                const parts = cleanName.split('_');
+                
+                let date = "Recent";
+                let tag = "SOC";
+                let title = cleanName;
+
+                // Xử lý linh hoạt định dạng YYYY-MM-DD_Tên bài viết
+                if (parts.length >= 2 && /^\d{4}-\d{2}-\d{2}$/.test(parts[0])) {
+                    date = parts[0];
+                    title = parts.slice(1).join(' ').replaceAll('-', ' ');
+                } else {
+                    title = cleanName.replaceAll('-', ' ');
+                }
+
+                // Trích xuất mã SOC nếu có
+                const socMatch = cleanName.match(/SOC\d+/i);
+                if (socMatch) {
+                    tag = socMatch[0].toUpperCase();
+                }
+
+                return `
+                    <div class="card">
+                        <div class="item-title">
+                            <a href="${file.html_url}" target="_blank">${title}</a>
+                        </div>
+                        <div class="card-meta">
+                            <span style="color: #334155; font-weight: 500;">Source: GitHub</span>
+                            <span>${date}</span>
+                        </div>
+                        <div style="margin-bottom: 5px;">
+                            <span class="tag">${tag}</span>
+                            <span class="tag">Markdown</span>
+                        </div>
+                        <p style="margin: 10px 0 0 0; font-size: 0.9rem; color: var(--text-muted);">
+                            Click vào tiêu đề để đọc toàn bộ nội dung trực tiếp trên GitHub.
+                        </p>
+                    </div>
+                `;
+            }).reverse().join(''); 
+
+            container.innerHTML = htmlContent;
+
+        } catch (error) {
+            console.error(`Lỗi khi tải folder ${folderName}:`, error);
+            container.innerHTML = `<div class="loading-state">Lỗi kết nối. Không thể tải dữ liệu lúc này.</div>`;
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        fetchGitHubFolder('blogs', 'blogsContainer');
+        fetchGitHubFolder('writeups', 'writeupsContainer');
+    });
+</script>
 </body>
 </html>
