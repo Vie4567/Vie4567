@@ -359,14 +359,18 @@
     const GITHUB_USER = "Vie4567";
     const GITHUB_REPO = "Vie4567"; 
 
+    // Hàm chuyển Tab
     function switchTab(tabId) {
         document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
         document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
         
         document.getElementById(`tab-${tabId}`).classList.add('active');
-        if(event) event.target.classList.add('active');
-    }z
+        if (event && event.target) {
+            event.target.classList.add('active');
+        }
+    }
 
+    // Hàm quét thư mục chính và tất cả thư mục con trên GitHub
     async function fetchGitHubFolder(folderName, containerId) {
         const container = document.getElementById(containerId);
         const apiUrl = `https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/contents/${folderName}`;
@@ -379,53 +383,80 @@
                 return;
             }
             if (response.status === 403) {
-                container.innerHTML = `<div class="loading-state">Quá giới hạn truy cập API của GitHub. Thử lại sau.</div>`;
+                container.innerHTML = `<div class="loading-state">Đã chạm giới hạn API GitHub. Vui lòng thử lại sau vài phút.</div>`;
+                return;
+            }
+            if (!response.ok) {
+                container.innerHTML = `<div class="loading-state">Lỗi kết nối GitHub (HTTP ${response.status}).</div>`;
                 return;
             }
 
             const items = await response.json();
-            let markdownFiles = [];
+            
+            // 1. Tách file .md ở thư mục gốc (nếu có)
+            let mdFiles = items
+                .filter(item => item.type === 'file' && item.name.endsWith('.md'))
+                .map(file => ({ file, folderName: '' }));
 
-            // Duyệt danh sách items để lấy cả file .md trực tiếp lẫn file .md nằm trong thư mục con
-            for (const item of items) {
-                if (item.type === 'file' && item.name.endsWith('.md')) {
-                    markdownFiles.push(item);
-                } else if (item.type === 'dir') {
-                    // Nếu là thư mục con, gọi API lấy file .md bên trong
-                    const subRes = await fetch(item.url);
-                    if (subRes.ok) {
+            // 2. Tách danh sách thư mục con
+            const dirItems = items.filter(item => item.type === 'dir');
+
+            // 3. Quét song song tất cả các thư mục con bằng Promise.all
+            const subFolderResults = await Promise.all(
+                dirItems.map(async (dir) => {
+                    try {
+                        const subRes = await fetch(dir.url);
+                        if (!subRes.ok) return [];
                         const subItems = await subRes.json();
-                        const subMd = subItems.filter(f => f.name.endsWith('.md'));
-                        markdownFiles.push(...subMd);
+                        
+                        return subItems
+                            .filter(f => f.type === 'file' && f.name.endsWith('.md'))
+                            .map(file => ({ file, folderName: dir.name }));
+                    } catch (e) {
+                        return [];
                     }
-                }
-            }
+                })
+            );
 
-            if (markdownFiles.length === 0) {
-                container.innerHTML = `<div class="loading-state">Chưa có bài viết nào trong thư mục này.</div>`;
+            // Gộp kết quả
+            subFolderResults.forEach(res => {
+                mdFiles = mdFiles.concat(res);
+            });
+
+            if (mdFiles.length === 0) {
+                container.innerHTML = `<div class="loading-state">Chưa tìm thấy bài viết .md nào trong thư mục này.</div>`;
                 return;
             }
 
-            const htmlContent = markdownFiles.map(file => {
-                const cleanName = file.name.replace('.md', '');
-                const parts = cleanName.split('_');
+            // 4. Render thẻ bài viết
+            const htmlContent = mdFiles.map(({ file, folderName }) => {
+                const rawName = folderName || file.name.replace('.md', '');
                 
                 let date = "Recent";
                 let tag = "SOC";
-                let title = cleanName;
-
-                // Xử lý linh hoạt định dạng YYYY-MM-DD_Tên bài viết
-                if (parts.length >= 2 && /^\d{4}-\d{2}-\d{2}$/.test(parts[0])) {
-                    date = parts[0];
-                    title = parts.slice(1).join(' ').replaceAll('-', ' ');
-                } else {
-                    title = cleanName.replaceAll('-', ' ');
+                
+                // Trích xuất ngày (YYYY-MM-DD) từ tên thư mục/file
+                const dateMatch = rawName.match(/^(\d{4}-\d{2}-\d{2})/);
+                if (dateMatch) {
+                    date = dateMatch[1];
                 }
 
-                // Trích xuất mã SOC nếu có
-                const socMatch = cleanName.match(/SOC\d+/i);
+                // Trích xuất mã SOC (ví dụ: SOC166, SOC205)
+                const socMatch = rawName.match(/SOC\d+/i) || file.name.match(/SOC\d+/i);
                 if (socMatch) {
                     tag = socMatch[0].toUpperCase();
+                }
+
+                // Tách lấy tiêu đề sạch
+                let title = rawName
+                    .replace(/^\d{4}-\d{2}-\d{2}[_-]?/, '') // Xóa ngày
+                    .replace(/[-_]?SOC\d+/i, '')             // Xóa mã SOC
+                    .replaceAll('-', ' ')
+                    .replaceAll('_', ' ')
+                    .trim();
+
+                if (!title) {
+                    title = file.name.replace('.md', '');
                 }
 
                 return `
@@ -442,7 +473,7 @@
                             <span class="tag">Markdown</span>
                         </div>
                         <p style="margin: 10px 0 0 0; font-size: 0.9rem; color: var(--text-muted);">
-                            Click vào tiêu đề để đọc toàn bộ nội dung trực tiếp trên GitHub.
+                            Click vào tiêu đề để đọc toàn bộ nội dung chi tiết trên GitHub.
                         </p>
                     </div>
                 `;
@@ -452,14 +483,15 @@
 
         } catch (error) {
             console.error(`Lỗi khi tải folder ${folderName}:`, error);
-            container.innerHTML = `<div class="loading-state">Lỗi kết nối. Không thể tải dữ liệu lúc này.</div>`;
+            container.innerHTML = `<div class="loading-state">Có lỗi xảy ra khi tải dữ liệu. Bấm F12 để kiểm tra Console.</div>`;
         }
     }
 
-    document.addEventListener('DOMContentLoaded', () => {
-        fetchGitHubFolder('blogs', 'blogsContainer');
-        fetchGitHubFolder('writeups', 'writeupsContainer');
-    });
-</script>
+        // Chạy khi trang web tải xong
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchGitHubFolder('blogs', 'blogsContainer');
+            fetchGitHubFolder('writeups', 'writeupsContainer');
+        });
+    </script>
 </body>
 </html>
